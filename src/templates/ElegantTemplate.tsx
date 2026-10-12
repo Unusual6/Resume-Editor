@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import { useResume } from '../context/ResumeContext';
 import { useTranslation } from 'react-i18next';
+import { localizeDate } from '../utils/date';
 
 const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
   const { lang, data } = useResume();
@@ -70,7 +71,7 @@ const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={edu.id} className="mb-3 last:mb-0">
                 <p className="text-[11px] font-semibold text-gray-200">{isZh ? edu.school : (edu.schoolEn || edu.school)}</p>
                 <p className="text-[10px] text-gray-400">{[isZh ? edu.degree : (edu.degreeEn || edu.degree), isZh ? edu.major : (edu.majorEn || edu.major)].filter(Boolean).join(' · ')}</p>
-                <p className="text-[10px] text-gray-500">{edu.startDate} — {edu.endDate}</p>
+                <p className="text-[10px] text-gray-500">{edu.startDate} — {localizeDate(edu.endDate, lang)}</p>
               </div>
             ))}
           </div>
@@ -98,7 +99,7 @@ const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={exp.id} className="mb-4 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-bold text-gray-900">{isZh ? exp.company : (exp.companyEn || exp.company)}</span>
-                  <span className="text-[10px] text-gray-400">{exp.startDate} — {exp.endDate}</span>
+                  <span className="text-[10px] text-gray-400">{exp.startDate} — {localizeDate(exp.endDate, lang)}</span>
                 </div>
                 <p className="text-xs italic mt-0.5" style={{ color: gold }}>{isZh ? exp.position : (exp.positionEn || exp.position)}</p>
                 {(isZh ? exp.description : exp.descriptionEn) && <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">{isZh ? exp.description : exp.descriptionEn}</p>}
@@ -115,7 +116,7 @@ const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={proj.id} className="mb-4 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-bold text-gray-900">{isZh ? proj.name : (proj.nameEn || proj.name)}</span>
-                  <span className="text-[10px] text-gray-400">{proj.startDate} — {proj.endDate}</span>
+                  <span className="text-[10px] text-gray-400">{proj.startDate} — {localizeDate(proj.endDate, lang)}</span>
                 </div>
                 {proj.techStack && <p className="text-[10px] text-gray-500 mt-0.5">{proj.techStack}</p>}
                 {(isZh ? proj.description : proj.descriptionEn) && <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">{isZh ? proj.description : proj.descriptionEn}</p>}

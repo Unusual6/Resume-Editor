@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { useResume } from '../context/ResumeContext';
 import { useTranslation } from 'react-i18next';
-import type { ResumeData } from '../types/resume';
+import { localizeDate } from '../utils/date';
 
 const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
   const { lang, data } = useResume();
@@ -43,7 +43,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={edu.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="font-semibold text-sm text-gray-800">{isZh ? edu.school : (edu.schoolEn || edu.school)}</span>
-                  <span className="text-xs text-gray-400">{edu.startDate} ~ {edu.endDate}</span>
+                  <span className="text-xs text-gray-400">{edu.startDate} ~ {localizeDate(edu.endDate, lang)}</span>
                 </div>
                 <p className="text-xs text-gray-500">{[isZh ? edu.degree : (edu.degreeEn || edu.degree), isZh ? edu.major : (edu.majorEn || edu.major)].filter(Boolean).join(' · ')}</p>
                 {(isZh ? edu.description : edu.descriptionEn) && <p className="text-xs text-gray-600 mt-1">{isZh ? edu.description : edu.descriptionEn}</p>}
@@ -58,7 +58,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={exp.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="font-semibold text-sm text-gray-800">{isZh ? exp.company : (exp.companyEn || exp.company)}</span>
-                  <span className="text-xs text-gray-400">{exp.startDate} ~ {exp.endDate}</span>
+                  <span className="text-xs text-gray-400">{exp.startDate} ~ {localizeDate(exp.endDate, lang)}</span>
                 </div>
                 <p className="text-xs text-gray-500">{isZh ? exp.position : (exp.positionEn || exp.position)}</p>
                 {(isZh ? exp.description : exp.descriptionEn) && <p className="text-xs text-gray-600 mt-1 leading-relaxed">{isZh ? exp.description : exp.descriptionEn}</p>}
@@ -73,7 +73,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={proj.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="font-semibold text-sm text-gray-800">{isZh ? proj.name : (proj.nameEn || proj.name)}</span>
-                  <span className="text-xs text-gray-400">{proj.startDate} ~ {proj.endDate}</span>
+                  <span className="text-xs text-gray-400">{proj.startDate} ~ {localizeDate(proj.endDate, lang)}</span>
                 </div>
                 <p className="text-xs text-gray-500">{[isZh ? proj.role : (proj.roleEn || proj.role), proj.techStack].filter(Boolean).join(' · ')}</p>
                 {(isZh ? proj.description : proj.descriptionEn) && <p className="text-xs text-gray-600 mt-1 leading-relaxed">{isZh ? proj.description : proj.descriptionEn}</p>}

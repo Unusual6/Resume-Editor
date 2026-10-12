@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import { useResume } from '../context/ResumeContext';
 import { useTranslation } from 'react-i18next';
+import { localizeDate } from '../utils/date';
 
 const MinimalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
   const { lang, data } = useResume();
@@ -55,7 +56,7 @@ const MinimalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={exp.id} className="mb-4 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-medium text-gray-900">{isZh ? exp.company : (exp.companyEn || exp.company)}</span>
-                  <span className="text-[10px] text-gray-300">{exp.startDate} — {exp.endDate}</span>
+                  <span className="text-[10px] text-gray-300">{exp.startDate} — {localizeDate(exp.endDate, lang)}</span>
                 </div>
                 <p className="text-xs text-gray-400 mt-0.5">{isZh ? exp.position : (exp.positionEn || exp.position)}</p>
                 {(isZh ? exp.description : exp.descriptionEn) && <p className="text-xs text-gray-500 mt-1.5 leading-relaxed">{isZh ? exp.description : exp.descriptionEn}</p>}
@@ -72,7 +73,7 @@ const MinimalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={proj.id} className="mb-4 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-medium text-gray-900">{isZh ? proj.name : (proj.nameEn || proj.name)}</span>
-                  <span className="text-[10px] text-gray-300">{proj.startDate} — {proj.endDate}</span>
+                  <span className="text-[10px] text-gray-300">{proj.startDate} — {localizeDate(proj.endDate, lang)}</span>
                 </div>
                 {proj.techStack && <p className="text-[10px] text-gray-400 mt-0.5">{proj.techStack}</p>}
                 {(isZh ? proj.description : proj.descriptionEn) && <p className="text-xs text-gray-500 mt-1.5 leading-relaxed">{isZh ? proj.description : proj.descriptionEn}</p>}
@@ -89,7 +90,7 @@ const MinimalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={edu.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-medium text-gray-900">{isZh ? edu.school : (edu.schoolEn || edu.school)}</span>
-                  <span className="text-[10px] text-gray-300">{edu.startDate} — {edu.endDate}</span>
+                  <span className="text-[10px] text-gray-300">{edu.startDate} — {localizeDate(edu.endDate, lang)}</span>
                 </div>
                 <p className="text-xs text-gray-400 mt-0.5">{[isZh ? edu.degree : (edu.degreeEn || edu.degree), isZh ? edu.major : (edu.majorEn || edu.major)].filter(Boolean).join(' · ')}</p>
               </div>
