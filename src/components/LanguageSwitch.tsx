@@ -16,7 +16,7 @@ export default function LanguageSwitch() {
       onClick={toggle}
       className="px-2.5 py-1 text-xs font-medium rounded border border-sf-border
                  hover:bg-sf-hover hover:border-sf-muted transition-colors text-sf-text font-mono
-                 min-w-[3rem]"
+                 w-12 flex items-center justify-center"
     >
       {t('app.switchLang')}
     </button>
