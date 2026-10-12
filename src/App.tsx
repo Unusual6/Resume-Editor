@@ -7,6 +7,7 @@ import ResumeForm from './components/ResumeForm';
 import ResumePreview from './components/ResumePreview';
 import ResumeList from './components/ResumeList';
 import LanguageSwitch from './components/LanguageSwitch';
+import TranslateButton from './components/TranslateButton';
 
 // Debounced preview - only re-renders after typing stops
 const MemoizedPreview = memo(ResumePreview);
@@ -106,6 +107,7 @@ function AppContent() {
         </div>
         <div className="flex items-center gap-3">
           <AutoSaveIndicator />
+          <TranslateButton />
           <LanguageSwitch />
           <button
             onClick={() => saveCurrentResume()}

@@ -97,4 +97,9 @@ export default {
     off: 'Manual',
     savedAt: 'Saved',
   },
+  translate: {
+    button: 'Translate',
+    translating: 'Translating',
+    hint: 'Translate current content to the other language',
+  },
 };

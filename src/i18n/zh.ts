@@ -97,4 +97,9 @@ export default {
     off: '手动保存',
     savedAt: '已保存',
   },
+  translate: {
+    button: '一键翻译',
+    translating: '翻译中',
+    hint: '将当前语言内容翻译为另一种语言',
+  },
 };
