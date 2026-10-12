@@ -10,7 +10,6 @@ export default function TranslateButton() {
   const [translating, setTranslating] = useState(false);
   const [progress, setProgress] = useState({ current: 0, total: 0 });
 
-  // Extract all text fields that need translation
   const extractFields = useCallback((d: ResumeData, sourceLang: 'zh' | 'en') => {
     const fields: { path: string; value: string }[] = [];
     const bio = d.basicInfo;
@@ -27,7 +26,6 @@ export default function TranslateButton() {
       if (bio.summaryEn) fields.push({ path: 'basicInfo.summary', value: bio.summaryEn });
     }
 
-    // Education
     d.educations.forEach((edu, i) => {
       if (sourceLang === 'zh') {
         if (edu.school) fields.push({ path: `educations[${i}].schoolEn`, value: edu.school });
@@ -42,7 +40,6 @@ export default function TranslateButton() {
       }
     });
 
-    // Experience
     d.experiences.forEach((exp, i) => {
       if (sourceLang === 'zh') {
         if (exp.company) fields.push({ path: `experiences[${i}].companyEn`, value: exp.company });
@@ -55,7 +52,6 @@ export default function TranslateButton() {
       }
     });
 
-    // Projects
     d.projects.forEach((proj, i) => {
       if (sourceLang === 'zh') {
         if (proj.name) fields.push({ path: `projects[${i}].nameEn`, value: proj.name });
@@ -68,7 +64,6 @@ export default function TranslateButton() {
       }
     });
 
-    // Skills
     d.skills.forEach((skill, i) => {
       if (sourceLang === 'zh') {
         if (skill.name) fields.push({ path: `skills[${i}].nameEn`, value: skill.name });
@@ -80,19 +75,15 @@ export default function TranslateButton() {
     return fields;
   }, []);
 
-  // Apply translated results back to data
   const applyTranslations = useCallback((
     fields: { path: string; value: string }[],
     translations: string[]
   ) => {
     setData(prev => {
       const next = JSON.parse(JSON.stringify(prev)) as ResumeData;
-
       fields.forEach((field, i) => {
         const translated = translations[i];
         if (!translated) return;
-
-        // Parse path like "basicInfo.nameEn" or "educations[0].schoolEn"
         const match = field.path.match(/^(\w+)\[(\d+)\]\.(\w+)$/);
         if (match) {
           const [, arrayKey, indexStr, prop] = match;
@@ -101,20 +92,17 @@ export default function TranslateButton() {
             arr[Number(indexStr)][prop] = translated;
           }
         } else {
-          // Simple path like "basicInfo.nameEn"
           const [obj, prop] = field.path.split('.');
           (next as any)[obj][prop] = translated;
         }
       });
-
       return next;
     });
   }, [setData]);
 
   const handleTranslate = async () => {
-    const sourceLang = lang; // Translate FROM current language
+    const sourceLang = lang;
     const targetLang = lang === 'zh' ? 'en' : 'zh';
-
     const fields = extractFields(data, sourceLang);
     if (fields.length === 0) return;
 
@@ -126,7 +114,6 @@ export default function TranslateButton() {
       const translations = await translateBatch(texts, sourceLang, targetLang, (current, total) => {
         setProgress({ current, total });
       });
-
       applyTranslations(fields, translations);
     } catch (error) {
       console.error('Translation failed:', error);
@@ -141,16 +128,16 @@ export default function TranslateButton() {
     <button
       onClick={handleTranslate}
       disabled={translating}
-      className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors shadow-sm
+      className={`px-2.5 py-1 text-xs font-medium rounded transition-colors font-mono
         ${translating
-          ? 'bg-amber-500 text-white cursor-wait'
-          : 'bg-gradient-to-r from-blue-500 to-purple-500 text-white hover:from-blue-600 hover:to-purple-600'
+          ? 'bg-amber-500/20 text-amber-400 cursor-wait border border-amber-500/30'
+          : 'text-primary border border-primary/30 hover:bg-primary/10'
         }`}
-      title={t('translate.hint') || `翻译为${targetLang}`}
+      title={t('translate.hint')}
     >
       {translating
-        ? `${t('translate.translating') || '翻译中'} ${progress.current}/${progress.total}`
-        : `${t('translate.button') || '一键翻译'} → ${targetLang}`
+        ? `${t('translate.translating')} ${progress.current}/${progress.total}`
+        : `${t('translate.button')} → ${targetLang}`
       }
     </button>
   );

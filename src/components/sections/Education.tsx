@@ -32,10 +32,12 @@ export default function EducationSection() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-gray-700">{t('form.education')}</h3>
-        <button onClick={addEducation} className="text-xs text-accent hover:underline">
+        <h3 className="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-2">
+          <span className="text-dark-muted">#</span> {t('form.education')}
+        </h3>
+        <button onClick={addEducation} className="text-xs text-primary hover:text-secondary font-mono">
           + {t('form.addEducation')}
         </button>
       </div>
@@ -43,10 +45,10 @@ export default function EducationSection() {
         items={data.educations}
         onReorder={(items) => reorderItems('educations', items)}
         renderItem={(edu, idx) => (
-          <div className="border border-gray-200 rounded-lg p-3 space-y-2 bg-white">
+          <div className="border border-dark-border rounded p-3 space-y-2 bg-dark-card">
             <div className="flex justify-between items-center">
-              <span className="text-xs text-gray-400">#{idx + 1}</span>
-              <button onClick={() => removeEducation(edu.id)} className="text-xs text-red-400 hover:text-red-600">
+              <span className="text-xs text-dark-muted font-mono">#{idx + 1}</span>
+              <button onClick={() => removeEducation(edu.id)} className="text-xs text-red-400/70 hover:text-red-400 font-mono">
                 {t('form.delete')}
               </button>
             </div>

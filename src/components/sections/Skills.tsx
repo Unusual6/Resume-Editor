@@ -24,16 +24,20 @@ export default function SkillsSection() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-gray-700">{t('form.skill')}</h3>
-        <button onClick={add} className="text-xs text-accent hover:underline">+ {t('form.addSkill')}</button>
+        <h3 className="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-2">
+          <span className="text-dark-muted">#</span> {t('form.skill')}
+        </h3>
+        <button onClick={add} className="text-xs text-primary hover:text-secondary font-mono">
+          + {t('form.addSkill')}
+        </button>
       </div>
       <SortableList
         items={data.skills}
         onReorder={(items) => reorderItems('skills', items)}
         renderItem={(skill) => (
-          <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg p-2">
+          <div className="flex items-center gap-2 bg-dark-card border border-dark-border rounded p-2">
             <input className="input-field flex-1" placeholder={t('placeholder.skillName')}
               value={skill.name} onChange={e => update(skill.id, 'name', e.target.value)} />
             <input className="input-field flex-1" placeholder="Name (EN)"
@@ -44,7 +48,7 @@ export default function SkillsSection() {
                 <option key={n} value={n}>{'★'.repeat(n)}{'☆'.repeat(5 - n)}</option>
               ))}
             </select>
-            <button onClick={() => remove(skill.id)} className="text-xs text-red-400 hover:text-red-600 px-1">
+            <button onClick={() => remove(skill.id)} className="text-xs text-red-400/70 hover:text-red-400 px-1 font-mono">
               {t('form.delete')}
             </button>
           </div>

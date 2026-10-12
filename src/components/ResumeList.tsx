@@ -48,22 +48,24 @@ export default function ResumeList() {
   };
 
   return (
-    <div className="h-full flex flex-col bg-white">
+    <div className="h-full flex flex-col bg-dark-surface">
       {/* Header */}
-      <div className="p-3 border-b border-gray-200">
-        <h2 className="text-sm font-bold text-gray-700 mb-2">{t('storage.title')}</h2>
+      <div className="p-3 border-b border-dark-border">
+        <h2 className="text-xs font-bold text-dark-muted uppercase tracking-wider mb-2 flex items-center gap-1.5">
+          <span className="text-primary">❯</span> {t('storage.title')}
+        </h2>
         <div className="flex gap-2">
           <button
             onClick={handleSave}
-            className="flex-1 px-2 py-1.5 text-xs font-medium text-white bg-primary rounded-md
-                       hover:bg-secondary transition-colors"
+            className="flex-1 px-2 py-1.5 text-xs font-medium text-dark-bg bg-primary rounded
+                       hover:bg-secondary transition-colors font-mono"
           >
             {currentId ? t('storage.save') : t('storage.saveNew')}
           </button>
           <button
             onClick={createNewResume}
-            className="flex-1 px-2 py-1.5 text-xs font-medium text-primary border border-primary rounded-md
-                       hover:bg-primary/5 transition-colors"
+            className="flex-1 px-2 py-1.5 text-xs font-medium text-dark-text border border-dark-border rounded
+                       hover:bg-dark-hover transition-colors font-mono"
           >
             {t('storage.create')}
           </button>
@@ -73,20 +75,19 @@ export default function ResumeList() {
       {/* List */}
       <div className="flex-1 overflow-y-auto custom-scrollbar p-2 space-y-1">
         {entries.length === 0 && (
-          <p className="text-xs text-gray-400 text-center py-8">{t('storage.empty')}</p>
+          <p className="text-xs text-dark-muted text-center py-8 font-mono">{t('storage.empty')}</p>
         )}
         {entries.map(entry => {
           const isActive = entry.id === currentId;
           return (
             <div
               key={entry.id}
-              className={`group rounded-lg border transition-colors cursor-pointer
+              className={`group rounded border transition-colors cursor-pointer
                 ${isActive
-                  ? 'border-accent bg-accent/5 shadow-sm'
-                  : 'border-gray-100 hover:border-gray-200 hover:bg-gray-50'
+                  ? 'border-primary/40 bg-primary/5'
+                  : 'border-transparent hover:border-dark-border hover:bg-dark-card'
                 }`}
             >
-              {/* Main row */}
               <div
                 className="flex items-center gap-2 p-2"
                 onClick={() => loadResume(entry.id)}
@@ -94,7 +95,7 @@ export default function ResumeList() {
                 <div className="flex-1 min-w-0">
                   {editingId === entry.id ? (
                     <input
-                      className="w-full px-1.5 py-0.5 text-xs border border-accent rounded focus:outline-none"
+                      className="w-full px-1.5 py-0.5 text-xs border border-primary/50 rounded bg-dark-card text-dark-text focus:outline-none font-mono"
                       value={editName}
                       onChange={e => setEditName(e.target.value)}
                       onBlur={commitRename}
@@ -107,41 +108,39 @@ export default function ResumeList() {
                     />
                   ) : (
                     <>
-                      <p className={`text-xs font-medium truncate ${isActive ? 'text-accent' : 'text-gray-700'}`}>
+                      <p className={`text-xs font-medium truncate font-mono ${isActive ? 'text-primary' : 'text-dark-text'}`}>
                         {entry.name}
                       </p>
-                      <p className="text-[10px] text-gray-400 mt-0.5">
+                      <p className="text-[10px] text-dark-muted mt-0.5 font-mono">
                         {formatDate(entry.updatedAt)}
                       </p>
                     </>
                   )}
                 </div>
-                {/* Active indicator */}
                 {isActive && (
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
                 )}
               </div>
 
-              {/* Action buttons */}
-              <div className={`flex border-t border-gray-100 ${isActive ? '' : 'opacity-0 group-hover:opacity-100'} transition-opacity`}>
+              <div className={`flex border-t ${isActive ? 'border-primary/20' : 'border-transparent'} ${isActive ? '' : 'opacity-0 group-hover:opacity-100 group-hover:border-dark-border'} transition-opacity`}>
                 <button
                   onClick={e => { e.stopPropagation(); startRename(entry.id, entry.name); }}
-                  className="flex-1 py-1 text-[10px] text-gray-500 hover:text-accent hover:bg-gray-50 transition-colors"
+                  className="flex-1 py-1 text-[10px] text-dark-muted hover:text-primary hover:bg-dark-hover transition-colors font-mono"
                   title={t('storage.rename')}
                 >
                   {t('storage.rename')}
                 </button>
                 <button
                   onClick={e => { e.stopPropagation(); duplicateResume(entry.id); }}
-                  className="flex-1 py-1 text-[10px] text-gray-500 hover:text-accent hover:bg-gray-50 transition-colors border-l border-gray-100"
+                  className="flex-1 py-1 text-[10px] text-dark-muted hover:text-primary hover:bg-dark-hover transition-colors border-l border-dark-border font-mono"
                   title={t('storage.duplicate')}
                 >
                   {t('storage.duplicate')}
                 </button>
                 <button
                   onClick={e => { e.stopPropagation(); handleDelete(entry.id); }}
-                  className={`flex-1 py-1 text-[10px] hover:bg-gray-50 transition-colors border-l border-gray-100
-                    ${confirmDeleteId === entry.id ? 'text-red-600 font-medium' : 'text-gray-500 hover:text-red-500'}`}
+                  className={`flex-1 py-1 text-[10px] hover:bg-dark-hover transition-colors border-l border-dark-border font-mono
+                    ${confirmDeleteId === entry.id ? 'text-red-400 font-medium' : 'text-dark-muted hover:text-red-400'}`}
                   title={t('storage.delete')}
                 >
                   {confirmDeleteId === entry.id ? t('storage.confirmDelete') : t('storage.delete')}
@@ -156,8 +155,8 @@ export default function ResumeList() {
       <TemplateSelector />
 
       {/* Footer count */}
-      <div className="p-2 border-t border-gray-100 text-center">
-        <span className="text-[10px] text-gray-400">
+      <div className="p-2 border-t border-dark-border text-center">
+        <span className="text-[10px] text-dark-muted font-mono">
           {t('storage.count', { count: entries.length })}
         </span>
       </div>

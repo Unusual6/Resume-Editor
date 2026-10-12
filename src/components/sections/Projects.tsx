@@ -29,19 +29,25 @@ export default function ProjectsSection() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-gray-700">{t('form.project')}</h3>
-        <button onClick={add} className="text-xs text-accent hover:underline">+ {t('form.addProject')}</button>
+        <h3 className="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-2">
+          <span className="text-dark-muted">#</span> {t('form.project')}
+        </h3>
+        <button onClick={add} className="text-xs text-primary hover:text-secondary font-mono">
+          + {t('form.addProject')}
+        </button>
       </div>
       <SortableList
         items={data.projects}
         onReorder={(items) => reorderItems('projects', items)}
         renderItem={(proj, idx) => (
-          <div className="border border-gray-200 rounded-lg p-3 space-y-2 bg-white">
+          <div className="border border-dark-border rounded p-3 space-y-2 bg-dark-card">
             <div className="flex justify-between items-center">
-              <span className="text-xs text-gray-400">#{idx + 1}</span>
-              <button onClick={() => remove(proj.id)} className="text-xs text-red-400 hover:text-red-600">{t('form.delete')}</button>
+              <span className="text-xs text-dark-muted font-mono">#{idx + 1}</span>
+              <button onClick={() => remove(proj.id)} className="text-xs text-red-400/70 hover:text-red-400 font-mono">
+                {t('form.delete')}
+              </button>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <input className="input-field" placeholder={t('placeholder.projectName')}

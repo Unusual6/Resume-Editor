@@ -7,9 +7,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#1a365d',
-        secondary: '#2c5282',
-        accent: '#3182ce',
+        primary: '#cc785c',
+        secondary: '#d98a6a',
+        accent: '#cc785c',
+        'dark-bg': '#1b1b1b',
+        'dark-surface': '#222222',
+        'dark-card': '#2a2a2a',
+        'dark-border': '#383838',
+        'dark-hover': '#333333',
+        'dark-text': '#e0e0e0',
+        'dark-muted': '#888888',
+      },
+      fontFamily: {
+        mono: ['"JetBrains Mono"', '"Fira Code"', 'ui-monospace', 'SFMono-Regular', 'Consolas', 'monospace'],
       },
     },
   },

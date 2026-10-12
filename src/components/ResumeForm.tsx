@@ -16,10 +16,12 @@ export default function ResumeForm() {
   };
 
   return (
-    <div className="h-full overflow-y-auto p-6 space-y-6">
+    <div className="h-full overflow-y-auto custom-scrollbar p-5 space-y-5">
       {/* Basic Info */}
-      <section className="space-y-4">
-        <h3 className="text-sm font-semibold text-gray-700">{t('form.basicInfo')}</h3>
+      <section className="space-y-3">
+        <h3 className="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-2">
+          <span className="text-dark-muted">#</span> {t('form.basicInfo')}
+        </h3>
         <div className="flex gap-4">
           <div className="flex-1 space-y-2">
             <div className="grid grid-cols-2 gap-2">
@@ -51,13 +53,13 @@ export default function ResumeForm() {
         </div>
       </section>
 
-      <hr className="border-gray-200" />
+      <div className="border-t border-dark-border" />
       <EducationSection />
-      <hr className="border-gray-200" />
+      <div className="border-t border-dark-border" />
       <ExperienceSection />
-      <hr className="border-gray-200" />
+      <div className="border-t border-dark-border" />
       <ProjectsSection />
-      <hr className="border-gray-200" />
+      <div className="border-t border-dark-border" />
       <SkillsSection />
     </div>
   );
