@@ -31,7 +31,7 @@ export default function ExperienceSection() {
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-2">
-          <span className="text-dark-muted">#</span> {t('form.experience')}
+          <span className="text-sf-muted">#</span> {t('form.experience')}
         </h3>
         <button onClick={add} className="text-xs text-primary hover:text-secondary font-mono">
           + {t('form.addExperience')}
@@ -41,10 +41,10 @@ export default function ExperienceSection() {
         items={data.experiences}
         onReorder={(items) => reorderItems('experiences', items)}
         renderItem={(exp, idx) => (
-          <div className="border border-dark-border rounded p-3 space-y-2 bg-dark-card">
+          <div className="border border-sf-border rounded p-3 space-y-2 bg-sf-card">
             <div className="flex justify-between items-center">
-              <span className="text-xs text-dark-muted font-mono">#{idx + 1}</span>
-              <button onClick={() => remove(exp.id)} className="text-xs text-red-400/70 hover:text-red-400 font-mono">
+              <span className="text-xs text-sf-muted font-mono">#{idx + 1}</span>
+              <button onClick={() => remove(exp.id)} className="text-xs text-red-400 hover:text-red-500 font-mono">
                 {t('form.delete')}
               </button>
             </div>

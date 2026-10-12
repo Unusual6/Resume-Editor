@@ -37,16 +37,16 @@ function AutoSaveIndicator() {
         onClick={() => setAutoSave(!autoSave)}
         className={`flex items-center gap-1.5 px-2 py-1 text-xs rounded transition-colors font-mono
           ${autoSave
-            ? 'text-emerald-400 bg-emerald-400/10 hover:bg-emerald-400/15'
-            : 'text-dark-muted bg-dark-card hover:bg-dark-hover'
+            ? 'text-green-700 bg-green-50 hover:bg-green-500/15'
+            : 'text-sf-muted bg-sf-card hover:bg-sf-hover'
           }`}
         title={autoSave ? t('autoSave.on') : t('autoSave.off')}
       >
-        <span className={`w-1.5 h-1.5 rounded-full ${autoSave ? 'bg-emerald-400' : 'bg-dark-muted'}`} />
+        <span className={`w-1.5 h-1.5 rounded-full ${autoSave ? 'bg-green-500' : 'bg-dark-muted'}`} />
         {autoSave ? t('autoSave.on') : t('autoSave.off')}
       </button>
       {showSaved && lastSavedAt && (
-        <span className="text-[10px] text-emerald-400/70 animate-pulse font-mono">
+        <span className="text-[10px] text-green-700/70 animate-pulse font-mono">
           {t('autoSave.savedAt')} {formatTime(lastSavedAt)}
         </span>
       )}
@@ -83,13 +83,13 @@ function AppContent() {
   }, [data.basicInfo.name, data.basicInfo.nameEn]);
 
   return (
-    <div className="h-screen flex flex-col bg-dark-bg">
+    <div className="h-screen flex flex-col bg-sf-bg">
       {/* Top bar - Claude Code style */}
-      <header className="no-print flex items-center justify-between px-4 py-2 bg-dark-surface border-b border-dark-border">
+      <header className="no-print flex items-center justify-between px-4 py-2 bg-sf-surface border-b border-sf-border">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-1.5 rounded hover:bg-dark-hover transition-colors text-dark-muted hover:text-dark-text"
+            className="p-1.5 rounded hover:bg-sf-hover transition-colors text-sf-muted hover:text-sf-text"
             title={sidebarOpen ? t('storage.hideList') : t('storage.showList')}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -104,7 +104,7 @@ function AppContent() {
           </button>
           <div className="flex items-center gap-2">
             <span className="text-primary font-bold text-sm">❯</span>
-            <h1 className="text-sm font-semibold text-dark-text tracking-wide">{t('app.title')}</h1>
+            <h1 className="text-sm font-semibold text-sf-text tracking-wide">{t('app.title')}</h1>
           </div>
         </div>
         <div className="flex items-center gap-2">
@@ -114,14 +114,14 @@ function AppContent() {
           <LanguageSwitch />
           <button
             onClick={() => saveCurrentResume()}
-            className="px-3 py-1 text-xs font-medium text-dark-text border border-dark-border rounded
-                       hover:bg-dark-hover hover:border-dark-muted transition-colors font-mono"
+            className="px-3 py-1 text-xs font-medium text-sf-text border border-sf-border rounded
+                       hover:bg-sf-hover hover:border-sf-muted transition-colors font-mono"
           >
             {t('storage.save')}
           </button>
           <button
             onClick={exportPdf}
-            className="px-3 py-1 text-xs font-medium text-dark-bg bg-primary rounded
+            className="px-3 py-1 text-xs font-medium text-white bg-primary rounded
                        hover:bg-secondary transition-colors font-mono"
           >
             {t('app.exportPdf')}
@@ -132,16 +132,16 @@ function AppContent() {
       {/* Main content */}
       <div className="flex-1 flex overflow-hidden">
         {sidebarOpen && (
-          <aside className="no-print w-[220px] flex-shrink-0 border-r border-dark-border overflow-hidden bg-dark-surface">
+          <aside className="no-print w-[220px] flex-shrink-0 border-r border-sf-border overflow-hidden bg-sf-surface">
             <ResumeList />
           </aside>
         )}
 
-        <aside className="no-print w-[400px] flex-shrink-0 border-r border-dark-border bg-dark-bg overflow-hidden">
+        <aside className="no-print w-[400px] flex-shrink-0 border-r border-sf-border bg-sf-bg overflow-hidden">
           <ResumeForm />
         </aside>
 
-        <main className="flex-1 overflow-auto custom-scrollbar bg-dark-bg p-8 flex justify-center">
+        <main className="flex-1 overflow-auto custom-scrollbar bg-sf-bg p-8 flex justify-center">
           <div className="transform origin-top" style={{ maxWidth: '210mm' }}>
             <MemoizedPreview ref={previewRef} />
           </div>

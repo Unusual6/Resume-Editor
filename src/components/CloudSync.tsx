@@ -151,11 +151,11 @@ export default function CloudSync() {
   }, []);
 
   const statusColor = {
-    idle: 'text-dark-muted',
-    verifying: 'text-blue-400',
-    uploading: 'text-blue-400',
-    downloading: 'text-blue-400',
-    success: 'text-emerald-400',
+    idle: 'text-sf-muted',
+    verifying: 'text-blue-600',
+    uploading: 'text-blue-600',
+    downloading: 'text-blue-600',
+    success: 'text-green-700',
     error: 'text-red-400',
   }[status];
 
@@ -167,7 +167,7 @@ export default function CloudSync() {
       <button
         onClick={handleOpen}
         className={`flex items-center gap-1.5 px-2 py-1 text-xs rounded transition-colors font-mono
-          ${hasToken ? 'text-primary bg-primary/10 hover:bg-primary/15 border border-primary/20' : 'text-dark-muted bg-dark-card hover:bg-dark-hover border border-dark-border'}`}
+          ${hasToken ? 'text-primary bg-primary/10 hover:bg-primary/15 border border-primary/20' : 'text-sf-muted bg-sf-card hover:bg-sf-hover border border-sf-border'}`}
         title={t('cloud.title')}
       >
         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
@@ -179,14 +179,14 @@ export default function CloudSync() {
 
       {/* Modal */}
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm" onClick={close}>
-          <div className="bg-dark-surface rounded-lg shadow-2xl w-[420px] max-h-[80vh] overflow-auto border border-dark-border" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm" onClick={close}>
+          <div className="bg-sf-surface rounded-lg shadow-2xl w-[420px] max-h-[80vh] overflow-auto border border-sf-border" onClick={e => e.stopPropagation()}>
             {/* Header */}
-            <div className="flex items-center justify-between px-5 py-4 border-b border-dark-border">
-              <h3 className="text-sm font-bold text-dark-text font-mono flex items-center gap-2">
+            <div className="flex items-center justify-between px-5 py-4 border-b border-sf-border">
+              <h3 className="text-sm font-bold text-sf-text font-mono flex items-center gap-2">
                 <span className="text-primary">❯</span> {t('cloud.title')}
               </h3>
-              <button onClick={close} className="p-1 rounded hover:bg-dark-hover text-dark-muted">
+              <button onClick={close} className="p-1 rounded hover:bg-sf-hover text-sf-muted">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -196,9 +196,9 @@ export default function CloudSync() {
             <div className="px-5 py-4 space-y-4">
               {/* Connection status */}
               {hasToken && githubLogin && (
-                <div className="flex items-center gap-2 px-3 py-2 bg-emerald-400/10 rounded border border-emerald-400/20">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="text-xs text-emerald-400 font-mono">
+                <div className="flex items-center gap-2 px-3 py-2 bg-green-50 rounded border border-green-200">
+                  <div className="w-2 h-2 rounded-full bg-green-500" />
+                  <span className="text-xs text-green-700 font-mono">
                     {isZh ? `已连接 GitHub: ` : `Connected to GitHub: `}
                     <strong>{githubLogin}</strong>
                   </span>
@@ -208,7 +208,7 @@ export default function CloudSync() {
               {/* Token input (when not connected) */}
               {!hasToken && (
                 <div>
-                  <label className="block text-xs font-medium text-dark-muted mb-1.5 font-mono">
+                  <label className="block text-xs font-medium text-sf-muted mb-1.5 font-mono">
                     GitHub Personal Access Token
                   </label>
                   <input
@@ -219,7 +219,7 @@ export default function CloudSync() {
                     className="input-field" 
                     onKeyDown={e => e.key === 'Enter' && handleConnect()}
                   />
-                  <p className="mt-1.5 text-[10px] text-dark-muted leading-relaxed font-mono">
+                  <p className="mt-1.5 text-[10px] text-sf-muted leading-relaxed font-mono">
                     {isZh
                       ? 'Token 仅存储在本浏览器，用于访问 GitHub Gist API 保存简历数据。'
                       : 'Token is stored only in this browser, used to access GitHub Gist API for saving resume data.'}
@@ -254,7 +254,7 @@ export default function CloudSync() {
                   <button
                     onClick={handleConnect}
                     disabled={!tokenInput.trim() || isLoading}
-                    className="flex-1 py-2 text-xs font-medium text-dark-bg bg-primary rounded
+                    className="flex-1 py-2 text-xs font-medium text-white bg-primary rounded
                                hover:bg-secondary disabled:opacity-40 disabled:cursor-not-allowed transition-colors font-mono"
                   >
                     {isZh ? '连接' : 'Connect'}
@@ -264,7 +264,7 @@ export default function CloudSync() {
                     <button
                       onClick={handleUpload}
                       disabled={isLoading}
-                      className="flex-1 py-2 text-xs font-medium text-dark-bg bg-primary rounded
+                      className="flex-1 py-2 text-xs font-medium text-white bg-primary rounded
                                  hover:bg-secondary disabled:opacity-40 transition-colors font-mono"
                     >
                       {isZh ? '↑ 上传到云端' : '↑ Upload to Cloud'}
@@ -286,14 +286,14 @@ export default function CloudSync() {
               {hasToken && (
                 <button
                   onClick={handleDisconnect}
-                  className="w-full py-1.5 text-[11px] text-dark-muted hover:text-red-400 transition-colors font-mono"
+                  className="w-full py-1.5 text-[11px] text-sf-muted hover:text-red-500 transition-colors font-mono"
                 >
                   {isZh ? '断开连接并清除本地 Token' : 'Disconnect and clear local Token'}
                 </button>
               )}
 
               {/* Help text */}
-              <div className="text-[10px] text-dark-muted leading-relaxed border-t border-dark-border pt-3 font-mono">
+              <div className="text-[10px] text-sf-muted leading-relaxed border-t border-sf-border pt-3 font-mono">
                 {isZh
                   ? '简历数据以 Secret Gist 形式保存在你的 GitHub 账号中，仅自己可见。照片因体积较大不会同步到云端。'
                   : 'Resume data is saved as a Secret Gist in your GitHub account, visible only to you. Photos are not synced due to size.'}

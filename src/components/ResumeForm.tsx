@@ -20,7 +20,7 @@ export default function ResumeForm() {
       {/* Basic Info */}
       <section className="space-y-3">
         <h3 className="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-2">
-          <span className="text-dark-muted">#</span> {t('form.basicInfo')}
+          <span className="text-sf-muted">#</span> {t('form.basicInfo')}
         </h3>
         <div className="flex gap-4">
           <div className="flex-1 space-y-2">
@@ -53,13 +53,13 @@ export default function ResumeForm() {
         </div>
       </section>
 
-      <div className="border-t border-dark-border" />
+      <div className="border-t border-sf-border" />
       <EducationSection />
-      <div className="border-t border-dark-border" />
+      <div className="border-t border-sf-border" />
       <ExperienceSection />
-      <div className="border-t border-dark-border" />
+      <div className="border-t border-sf-border" />
       <ProjectsSection />
-      <div className="border-t border-dark-border" />
+      <div className="border-t border-sf-border" />
       <SkillsSection />
     </div>
   );

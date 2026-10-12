@@ -44,7 +44,7 @@ function SortableItem({ id, children }: SortableItemProps) {
       <button
         {...attributes}
         {...listeners}
-        className="absolute left-0 top-0 bottom-0 w-5 flex items-center justify-center cursor-grab active:cursor-grabbing text-dark-hover hover:text-dark-muted transition-colors"
+        className="absolute left-0 top-0 bottom-0 w-5 flex items-center justify-center cursor-grab active:cursor-grabbing text-dark-hover hover:text-sf-muted transition-colors"
         title="拖拽排序"
       >
         <svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor">

@@ -27,7 +27,7 @@ export default function SkillsSection() {
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <h3 className="text-xs font-semibold text-primary uppercase tracking-wider flex items-center gap-2">
-          <span className="text-dark-muted">#</span> {t('form.skill')}
+          <span className="text-sf-muted">#</span> {t('form.skill')}
         </h3>
         <button onClick={add} className="text-xs text-primary hover:text-secondary font-mono">
           + {t('form.addSkill')}
@@ -37,7 +37,7 @@ export default function SkillsSection() {
         items={data.skills}
         onReorder={(items) => reorderItems('skills', items)}
         renderItem={(skill) => (
-          <div className="flex items-center gap-2 bg-dark-card border border-dark-border rounded p-2">
+          <div className="flex items-center gap-2 bg-sf-card border border-sf-border rounded p-2">
             <input className="input-field flex-1" placeholder={t('placeholder.skillName')}
               value={skill.name} onChange={e => update(skill.id, 'name', e.target.value)} />
             <input className="input-field flex-1" placeholder="Name (EN)"
@@ -48,7 +48,7 @@ export default function SkillsSection() {
                 <option key={n} value={n}>{'★'.repeat(n)}{'☆'.repeat(5 - n)}</option>
               ))}
             </select>
-            <button onClick={() => remove(skill.id)} className="text-xs text-red-400/70 hover:text-red-400 px-1 font-mono">
+            <button onClick={() => remove(skill.id)} className="text-xs text-red-400 hover:text-red-500 px-1 font-mono">
               {t('form.delete')}
             </button>
           </div>

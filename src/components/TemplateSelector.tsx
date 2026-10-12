@@ -17,8 +17,8 @@ export default function TemplateSelector() {
   const { template, setTemplate } = useResume();
 
   return (
-    <div className="p-3 border-b border-dark-border bg-dark-surface">
-      <h3 className="text-[10px] font-bold text-dark-muted uppercase tracking-wider mb-2 flex items-center gap-1">
+    <div className="p-3 border-b border-sf-border bg-sf-surface">
+      <h3 className="text-[10px] font-bold text-sf-muted uppercase tracking-wider mb-2 flex items-center gap-1">
         <span className="text-primary">❯</span> {t('template.title')}
       </h3>
       <div className="grid grid-cols-4 gap-1.5 justify-items-center">
@@ -31,18 +31,18 @@ export default function TemplateSelector() {
               className={`relative flex flex-col items-center rounded p-1.5 transition-all
                 ${isActive
                   ? 'ring-1 ring-primary/50 bg-primary/5'
-                  : 'hover:bg-dark-card border border-transparent hover:border-dark-border'
+                  : 'hover:bg-sf-card border border-transparent hover:border-sf-border'
                 }`}
             >
               {/* Mini preview */}
-              <div className="w-full aspect-[3/4] rounded-sm overflow-hidden mb-1 border border-dark-border bg-dark-card">
+              <div className="w-full aspect-[3/4] rounded-sm overflow-hidden mb-1 border border-sf-border bg-sf-card">
                 {tp.sidebar ? (
                   <div className="h-full flex">
                     <div className="w-1/3 h-full" style={{ background: `${tp.color}15` }} />
                     <div className="flex-1 px-1 pt-1.5 space-y-0.5">
                       <div className="h-0.5 rounded w-3/4" style={{ background: `${tp.color}30` }} />
                       <div className="h-0.5 bg-dark-border rounded w-1/2" />
-                      <div className="h-0.5 bg-dark-hover rounded w-2/3" />
+                      <div className="h-0.5 bg-sf-hover rounded w-2/3" />
                     </div>
                   </div>
                 ) : tp.key === 'creative' ? (
@@ -51,7 +51,7 @@ export default function TemplateSelector() {
                     <div className="flex-1 px-1.5 pt-1 space-y-0.5">
                       <div className="h-0.5 rounded w-3/4" style={{ background: `${tp.color}25` }} />
                       <div className="h-0.5 bg-dark-border rounded w-1/2" />
-                      <div className="h-0.5 bg-dark-hover rounded w-2/3" />
+                      <div className="h-0.5 bg-sf-hover rounded w-2/3" />
                     </div>
                   </div>
                 ) : tp.key === 'compact' ? (
@@ -62,11 +62,11 @@ export default function TemplateSelector() {
                     <div className="flex flex-1 px-1 pt-1 gap-0.5">
                       <div className="flex-1 space-y-0.5">
                         <div className="h-0.5 bg-dark-border rounded w-full" />
-                        <div className="h-0.5 bg-dark-hover rounded w-3/4" />
+                        <div className="h-0.5 bg-sf-hover rounded w-3/4" />
                       </div>
                       <div className="w-1/3 space-y-0.5">
                         <div className="h-0.5 bg-dark-border rounded w-full" />
-                        <div className="h-0.5 bg-dark-hover rounded w-2/3" />
+                        <div className="h-0.5 bg-sf-hover rounded w-2/3" />
                       </div>
                     </div>
                   </div>
@@ -76,7 +76,7 @@ export default function TemplateSelector() {
                     <div className="flex-1 px-1.5 pt-1.5 space-y-0.5">
                       <div className="h-0.5 rounded w-3/4" style={{ background: `${tp.color}30` }} />
                       <div className="h-0.5 bg-dark-border rounded w-1/2" />
-                      <div className="h-0.5 bg-dark-hover rounded w-2/3" />
+                      <div className="h-0.5 bg-sf-hover rounded w-2/3" />
                     </div>
                   </div>
                 ) : (
@@ -86,18 +86,18 @@ export default function TemplateSelector() {
                     </div>
                     <div className="flex-1 px-1.5 pt-1 space-y-0.5">
                       <div className="h-0.5 bg-dark-border rounded w-3/4" />
-                      <div className="h-0.5 bg-dark-hover rounded w-1/2" />
-                      <div className="h-0.5 bg-dark-card rounded w-2/3" />
+                      <div className="h-0.5 bg-sf-hover rounded w-1/2" />
+                      <div className="h-0.5 bg-sf-card rounded w-2/3" />
                     </div>
                   </div>
                 )}
               </div>
-              <span className={`text-[9px] leading-tight font-mono ${isActive ? 'text-primary font-semibold' : 'text-dark-muted'}`}>
+              <span className={`text-[9px] leading-tight font-mono ${isActive ? 'text-primary font-semibold' : 'text-sf-muted'}`}>
                 {t('template.' + tp.key)}
               </span>
               {isActive && (
                 <div className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-primary flex items-center justify-center">
-                  <svg className="w-1.5 h-1.5 text-dark-bg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-1.5 h-1.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
