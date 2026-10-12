@@ -2,11 +2,14 @@ import { useTranslation } from 'react-i18next';
 import { useResume } from '../context/ResumeContext';
 import type { TemplateType } from '../types/resume';
 
-const templates: { key: TemplateType; label: string; labelEn: string; color: string; desc: string; descEn: string }[] = [
-  { key: 'classic', label: '经典', labelEn: 'Classic', color: '#1a365d', desc: '深蓝主色调，传统专业', descEn: 'Navy blue, professional' },
-  { key: 'modern', label: '现代', labelEn: 'Modern', color: '#111827', desc: '深色侧栏，双栏布局', descEn: 'Dark sidebar, two-column' },
-  { key: 'minimal', label: '极简', labelEn: 'Minimal', color: '#9ca3af', desc: '大量留白，居中排版', descEn: 'Whitespace, centered' },
-  { key: 'elegant', label: '典雅', labelEn: 'Elegant', color: '#b8860b', desc: '金色点缀，深色侧栏', descEn: 'Gold accents, elegant' },
+const templates: { key: TemplateType; color: string; sidebar?: boolean; desc: string; descEn: string }[] = [
+  { key: 'classic', color: '#2563eb', desc: '蓝色主色调，单栏专业', descEn: 'Blue accent, single-column' },
+  { key: 'modern', color: '#0891b2', sidebar: true, desc: '浅青侧栏，双栏布局', descEn: 'Light teal sidebar' },
+  { key: 'minimal', color: '#9ca3af', desc: '居中留白，极简排版', descEn: 'Centered, whitespace' },
+  { key: 'elegant', color: '#7c6f64', sidebar: true, desc: '暖色侧栏，衬线字体', descEn: 'Warm sidebar, serif' },
+  { key: 'professional', color: '#0f766e', desc: '左侧竖线，企业风格', descEn: 'Left accent bar, corporate' },
+  { key: 'creative', color: '#7c3aed', desc: '渐变头部，胶囊标签', descEn: 'Gradient header, creative' },
+  { key: 'compact', color: '#0369a1', desc: '双栏紧凑，信息密度高', descEn: 'Two-column, space-efficient' },
 ];
 
 export default function TemplateSelector() {
@@ -16,7 +19,7 @@ export default function TemplateSelector() {
   return (
     <div className="p-3 border-b border-gray-200 bg-white">
       <h3 className="text-xs font-bold text-gray-600 mb-2">{t('template.title')}</h3>
-      <div className="grid grid-cols-4 gap-1.5">
+      <div className="grid grid-cols-4 gap-1.5 justify-items-center">
         {templates.map(tp => {
           const isActive = template === tp.key;
           return (
@@ -27,45 +30,59 @@ export default function TemplateSelector() {
                 ${isActive ? 'ring-2 ring-accent shadow-sm' : 'hover:bg-gray-50 border border-gray-100'}`}
             >
               {/* Mini preview */}
-              <div className="w-full aspect-[3/4] rounded-sm overflow-hidden mb-1 border border-gray-200"
-                style={{ background: '#fff' }}>
-                {/* Simulate template look */}
-                {tp.key === 'classic' && (
-                  <div className="h-full flex flex-col">
-                    <div className="h-3" style={{ background: tp.color }} />
-                    <div className="flex-1 px-1 pt-1 space-y-0.5">
-                      <div className="h-0.5 bg-gray-200 rounded w-3/4" />
-                      <div className="h-0.5 bg-gray-100 rounded w-1/2" />
-                      <div className="h-0.5 bg-gray-100 rounded w-2/3" />
-                    </div>
-                  </div>
-                )}
-                {tp.key === 'modern' && (
+              <div className="w-full aspect-[3/4] rounded-sm overflow-hidden mb-1 border border-gray-200 bg-white">
+                {tp.sidebar ? (
                   <div className="h-full flex">
-                    <div className="w-1/3 h-full" style={{ background: tp.color }} />
-                    <div className="flex-1 px-1 pt-1 space-y-0.5">
-                      <div className="h-0.5 bg-gray-200 rounded w-3/4" />
+                    <div className="w-1/3 h-full" style={{ background: `${tp.color}12` }} />
+                    <div className="flex-1 px-1 pt-1.5 space-y-0.5">
+                      <div className="h-0.5 rounded w-3/4" style={{ background: `${tp.color}30` }} />
                       <div className="h-0.5 bg-gray-100 rounded w-1/2" />
-                      <div className="h-0.5 bg-gray-100 rounded w-2/3" />
+                      <div className="h-0.5 bg-gray-50 rounded w-2/3" />
                     </div>
                   </div>
-                )}
-                {tp.key === 'minimal' && (
-                  <div className="h-full flex flex-col items-center justify-center px-2">
-                    <div className="h-0.5 bg-gray-300 rounded w-1/2 mb-1" />
-                    <div className="h-px bg-gray-200 w-full mb-1" />
-                    <div className="h-0.5 bg-gray-100 rounded w-3/4" />
-                    <div className="h-0.5 bg-gray-100 rounded w-1/2 mt-0.5" />
+                ) : tp.key === 'creative' ? (
+                  <div className="h-full flex flex-col">
+                    <div className="h-3" style={{ background: `linear-gradient(135deg, ${tp.color}15, ${tp.color}08)` }} />
+                    <div className="flex-1 px-1.5 pt-1 space-y-0.5">
+                      <div className="h-0.5 rounded w-3/4" style={{ background: `${tp.color}25` }} />
+                      <div className="h-0.5 bg-gray-100 rounded w-1/2" />
+                      <div className="h-0.5 bg-gray-50 rounded w-2/3" />
+                    </div>
                   </div>
-                )}
-                {tp.key === 'elegant' && (
+                ) : tp.key === 'compact' ? (
+                  <div className="h-full flex flex-col">
+                    <div className="h-2.5" style={{ borderBottom: `1.5px solid ${tp.color}` }}>
+                      <div className="h-0.5 rounded w-1/3 mx-1 mt-1" style={{ background: `${tp.color}40` }} />
+                    </div>
+                    <div className="flex flex-1 px-1 pt-1 gap-0.5">
+                      <div className="flex-1 space-y-0.5">
+                        <div className="h-0.5 bg-gray-100 rounded w-full" />
+                        <div className="h-0.5 bg-gray-50 rounded w-3/4" />
+                      </div>
+                      <div className="w-1/3 space-y-0.5">
+                        <div className="h-0.5 bg-gray-100 rounded w-full" />
+                        <div className="h-0.5 bg-gray-50 rounded w-2/3" />
+                      </div>
+                    </div>
+                  </div>
+                ) : tp.key === 'professional' ? (
                   <div className="h-full flex">
                     <div className="w-0.5 h-full" style={{ background: tp.color }} />
-                    <div className="w-1/3 h-full" style={{ background: '#1a1a2e' }} />
-                    <div className="flex-1 px-1 pt-1 space-y-0.5">
-                      <div className="h-0.5 rounded w-3/4" style={{ background: tp.color, opacity: 0.4 }} />
+                    <div className="flex-1 px-1.5 pt-1.5 space-y-0.5">
+                      <div className="h-0.5 rounded w-3/4" style={{ background: `${tp.color}30` }} />
                       <div className="h-0.5 bg-gray-100 rounded w-1/2" />
-                      <div className="h-0.5 bg-gray-100 rounded w-2/3" />
+                      <div className="h-0.5 bg-gray-50 rounded w-2/3" />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="h-full flex flex-col">
+                    <div className="h-1.5" style={{ background: tp.key === 'minimal' ? undefined : `${tp.color}20` }}>
+                      {tp.key === 'minimal' && <div className="h-0.5 rounded w-1/2 mx-auto mt-0.5 bg-gray-200" />}
+                    </div>
+                    <div className="flex-1 px-1.5 pt-1 space-y-0.5">
+                      <div className="h-0.5 bg-gray-200 rounded w-3/4" />
+                      <div className="h-0.5 bg-gray-100 rounded w-1/2" />
+                      <div className="h-0.5 bg-gray-50 rounded w-2/3" />
                     </div>
                   </div>
                 )}

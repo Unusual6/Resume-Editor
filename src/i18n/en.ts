@@ -91,6 +91,9 @@ export default {
     modern: 'Modern',
     minimal: 'Minimal',
     elegant: 'Elegant',
+    professional: 'Professional',
+    creative: 'Creative',
+    compact: 'Compact',
   },
   autoSave: {
     on: 'Auto Save',

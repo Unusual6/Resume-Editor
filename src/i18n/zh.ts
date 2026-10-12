@@ -91,6 +91,9 @@ export default {
     modern: '现代',
     minimal: '极简',
     elegant: '典雅',
+    professional: '专业',
+    creative: '创意',
+    compact: '紧凑',
   },
   autoSave: {
     on: '自动保存',

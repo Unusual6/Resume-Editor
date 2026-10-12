@@ -1,57 +1,42 @@
 import { forwardRef } from 'react';
-import { useResume } from '../context/ResumeContext';
-import { useTranslation } from 'react-i18next';
-import { localizeDate } from '../utils/date';
+import { useResumeData } from '../utils/useResumeData';
+
+const ACCENT = '#0891b2';
+const SIDEBAR_BG = '#f0fdfa';
 
 const ModernTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { lang, data } = useResume();
-  const { t } = useTranslation();
-  const bio = data.basicInfo;
-  const isZh = lang === 'zh';
-
-  const name = isZh ? bio.name : (bio.nameEn || bio.name);
-  const title = isZh ? bio.title : (bio.titleEn || bio.title);
-  const address = isZh ? bio.address : (bio.addressEn || bio.address);
-  const summary = isZh ? bio.summary : (bio.summaryEn || bio.summary);
-  const font = isZh
-    ? '"Noto Sans SC", "PingFang SC", sans-serif'
-    : '"Inter", "Helvetica Neue", sans-serif';
+  const { data, isZh, bio, l, ld, font, t } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white flex" style={{ fontFamily: font }}>
-      {/* Sidebar */}
-      <div className="w-[72mm] bg-gray-900 text-white flex-shrink-0 flex flex-col">
-        {/* Photo */}
-        {bio.photo && (
-          <div className="p-6 pb-0 flex justify-center">
-            <img src={bio.photo} alt="" className="w-28 h-28 rounded-full object-cover border-3 border-white/20" />
-          </div>
-        )}
-
-        {/* Name & Title */}
-        <div className="px-6 pt-4 pb-5">
-          <h1 className="text-xl font-bold leading-tight">{name}</h1>
-          <p className="text-xs text-gray-300 mt-1 font-medium tracking-wide">{title}</p>
+      {/* Sidebar - light color */}
+      <div className="w-[70mm] flex-shrink-0 flex flex-col" style={{ background: SIDEBAR_BG }}>
+        <div className="px-5 pt-7 pb-4">
+          {bio.photo && (
+            <div className="flex justify-center mb-4">
+              <img src={bio.photo} alt="" className="w-24 h-24 rounded-full object-cover" style={{ border: `2px solid ${ACCENT}30` }} />
+            </div>
+          )}
+          <h1 className="text-xl font-bold" style={{ color: '#134e4a' }}>{l('name', 'nameEn', bio)}</h1>
+          <p className="text-xs mt-0.5" style={{ color: ACCENT }}>{l('title', 'titleEn', bio)}</p>
         </div>
 
-        {/* Contact */}
-        <div className="px-6 space-y-2 text-xs text-gray-300">
-          {bio.email && <p className="flex items-start gap-2"><span className="text-gray-500 mt-px">✉</span><span className="break-all">{bio.email}</span></p>}
-          {bio.phone && <p className="flex items-start gap-2"><span className="text-gray-500 mt-px">☎</span><span>{bio.phone}</span></p>}
-          {address && <p className="flex items-start gap-2"><span className="text-gray-500 mt-px">⌂</span><span>{address}</span></p>}
+        <div className="px-5 space-y-1.5 text-[11px]" style={{ color: '#4b7c78' }}>
+          {bio.email && <p>{bio.email}</p>}
+          {bio.phone && <p>{bio.phone}</p>}
+          {l('address', 'addressEn', bio) && <p>{l('address', 'addressEn', bio)}</p>}
         </div>
 
-        {/* Skills */}
         {data.skills.length > 0 && (
-          <div className="px-6 mt-6">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3 pb-1" style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }}>{t('preview.skills')}</h2>
-            <div className="space-y-2">
+          <div className="px-5 mt-5">
+            <h2 className="text-[10px] font-bold uppercase tracking-widest mb-2.5 pb-1" style={{ color: ACCENT, borderBottom: `1px solid ${ACCENT}25` }}>{t('preview.skills')}</h2>
+            <div className="space-y-1.5">
               {data.skills.map(skill => (
                 <div key={skill.id}>
-                  <p className="text-xs text-gray-200">{isZh ? skill.name : (skill.nameEn || skill.name)}</p>
-                  <div className="flex gap-0.5 mt-1">
+                  <p className="text-[11px]" style={{ color: '#1e3a3a' }}>{l('name', 'nameEn', skill)}</p>
+                  <div className="flex gap-0.5 mt-0.5">
                     {[1, 2, 3, 4, 5].map(n => (
-                      <div key={n} className={`h-1 flex-1 rounded-full ${n <= skill.level ? 'bg-white' : 'bg-white/20'}`} />
+                      <div key={n} className="h-1 flex-1 rounded-full" style={{ background: n <= skill.level ? ACCENT : `${ACCENT}20` }} />
                     ))}
                   </div>
                 </div>
@@ -60,40 +45,37 @@ const ModernTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
           </div>
         )}
 
-        {/* Education in sidebar */}
         {data.educations.length > 0 && (
-          <div className="px-6 mt-6">
-            <h2 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-3 pb-1" style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }}>{t('preview.education')}</h2>
+          <div className="px-5 mt-5">
+            <h2 className="text-[10px] font-bold uppercase tracking-widest mb-2.5 pb-1" style={{ color: ACCENT, borderBottom: `1px solid ${ACCENT}25` }}>{t('preview.education')}</h2>
             {data.educations.map(edu => (
-              <div key={edu.id} className="mb-3 last:mb-0">
-                <p className="text-xs font-semibold text-gray-200">{isZh ? edu.school : (edu.schoolEn || edu.school)}</p>
-                <p className="text-[10px] text-gray-400">{[isZh ? edu.degree : (edu.degreeEn || edu.degree), isZh ? edu.major : (edu.majorEn || edu.major)].filter(Boolean).join(' · ')}</p>
-                <p className="text-[10px] text-gray-500">{edu.startDate} ~ {localizeDate(edu.endDate, lang)}</p>
+              <div key={edu.id} className="mb-2.5 last:mb-0">
+                <p className="text-[11px] font-semibold" style={{ color: '#134e4a' }}>{l('school', 'schoolEn', edu)}</p>
+                <p className="text-[10px]" style={{ color: '#5f8f8b' }}>{[l('degree', 'degreeEn', edu), l('major', 'majorEn', edu)].filter(Boolean).join(' · ')}</p>
+                <p className="text-[10px]" style={{ color: '#85b0ad' }}>{edu.startDate} ~ {ld(edu.endDate)}</p>
               </div>
             ))}
           </div>
         )}
       </div>
 
-      {/* Main content */}
-      <div className="flex-1 px-8 py-8 space-y-5">
-        {summary && (
-          <div>
-            <p className="text-xs text-gray-600 leading-relaxed">{summary}</p>
-          </div>
+      {/* Main */}
+      <div className="flex-1 px-7 py-7 space-y-5">
+        {l('summary', 'summaryEn', bio) && (
+          <p className="text-xs leading-relaxed" style={{ color: '#475569' }}>{l('summary', 'summaryEn', bio)}</p>
         )}
 
         {data.experiences.length > 0 && (
           <div>
-            <h2 className="text-sm font-bold text-gray-900 mb-3 pb-1" style={{ borderBottom: '2px solid #111827' }}>{t('preview.experience')}</h2>
+            <h2 className="text-xs font-bold uppercase tracking-widest mb-3 pb-1" style={{ color: ACCENT, borderBottom: `1.5px solid ${ACCENT}25` }}>{t('preview.experience')}</h2>
             {data.experiences.map(exp => (
-              <div key={exp.id} className="mb-4 last:mb-0">
+              <div key={exp.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
-                  <span className="font-semibold text-sm text-gray-900">{isZh ? exp.company : (exp.companyEn || exp.company)}</span>
-                  <span className="text-[10px] text-gray-400">{exp.startDate} ~ {localizeDate(exp.endDate, lang)}</span>
+                  <span className="text-sm font-semibold" style={{ color: '#1e293b' }}>{l('company', 'companyEn', exp)}</span>
+                  <span className="text-[10px] flex-shrink-0 ml-2" style={{ color: '#94a3b8' }}>{exp.startDate} ~ {ld(exp.endDate)}</span>
                 </div>
-                <p className="text-xs text-gray-500 mt-0.5">{isZh ? exp.position : (exp.positionEn || exp.position)}</p>
-                {(isZh ? exp.description : exp.descriptionEn) && <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">{isZh ? exp.description : exp.descriptionEn}</p>}
+                <p className="text-[11px] mt-0.5" style={{ color: '#64748b' }}>{l('position', 'positionEn', exp)}</p>
+                {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }}>{l('description', 'descriptionEn', exp)}</p>}
               </div>
             ))}
           </div>
@@ -101,15 +83,15 @@ const ModernTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
 
         {data.projects.length > 0 && (
           <div>
-            <h2 className="text-sm font-bold text-gray-900 mb-3 pb-1" style={{ borderBottom: '2px solid #111827' }}>{t('preview.project')}</h2>
+            <h2 className="text-xs font-bold uppercase tracking-widest mb-3 pb-1" style={{ color: ACCENT, borderBottom: `1.5px solid ${ACCENT}25` }}>{t('preview.project')}</h2>
             {data.projects.map(proj => (
-              <div key={proj.id} className="mb-4 last:mb-0">
+              <div key={proj.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
-                  <span className="font-semibold text-sm text-gray-900">{isZh ? proj.name : (proj.nameEn || proj.name)}</span>
-                  <span className="text-[10px] text-gray-400">{proj.startDate} ~ {localizeDate(proj.endDate, lang)}</span>
+                  <span className="text-sm font-semibold" style={{ color: '#1e293b' }}>{l('name', 'nameEn', proj)}</span>
+                  <span className="text-[10px] flex-shrink-0 ml-2" style={{ color: '#94a3b8' }}>{proj.startDate} ~ {ld(proj.endDate)}</span>
                 </div>
-                <p className="text-[10px] text-gray-500 mt-0.5">{[isZh ? proj.role : (proj.roleEn || proj.role), proj.techStack].filter(Boolean).join(' · ')}</p>
-                {(isZh ? proj.description : proj.descriptionEn) && <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">{isZh ? proj.description : proj.descriptionEn}</p>}
+                <p className="text-[11px] mt-0.5" style={{ color: '#64748b' }}>{[l('role', 'roleEn', proj), proj.techStack].filter(Boolean).join(' · ')}</p>
+                {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }}>{l('description', 'descriptionEn', proj)}</p>}
               </div>
             ))}
           </div>

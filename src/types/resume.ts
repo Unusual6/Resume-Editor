@@ -68,7 +68,7 @@ export interface ResumeData {
 
 export type Lang = 'zh' | 'en';
 
-export type TemplateType = 'classic' | 'modern' | 'minimal' | 'elegant';
+export type TemplateType = 'classic' | 'modern' | 'minimal' | 'elegant' | 'professional' | 'creative' | 'compact';
 
 export interface ResumeEntry {
   id: string;
