@@ -28,7 +28,7 @@ export default function TemplateSelector() {
             <button
               key={tp.key}
               onClick={() => setTemplate(tp.key)}
-              className={`relative flex flex-col items-center rounded p-1.5 transition-all
+              className={`relative flex flex-col items-center rounded p-1.5 transition-all w-full
                 ${isActive
                   ? 'ring-1 ring-primary/50 bg-primary/5'
                   : 'hover:bg-sf-card border border-transparent hover:border-sf-border'
@@ -92,7 +92,7 @@ export default function TemplateSelector() {
                   </div>
                 )}
               </div>
-              <span className={`text-[9px] leading-tight font-mono ${isActive ? 'text-primary font-semibold' : 'text-sf-muted'}`}>
+              <span className={`text-[9px] leading-tight font-mono text-center w-full truncate ${isActive ? 'text-primary font-semibold' : 'text-sf-muted'}`}>
                 {t('template.' + tp.key)}
               </span>
               {isActive && (
