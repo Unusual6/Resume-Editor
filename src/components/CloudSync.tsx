@@ -166,15 +166,16 @@ export default function CloudSync() {
       {/* Cloud sync button */}
       <button
         onClick={handleOpen}
-        className={`flex items-center gap-1.5 px-2 py-1 text-xs rounded transition-colors font-mono
+        className={`flex items-center gap-1.5 py-1 text-xs rounded transition-colors font-mono flex-shrink-0
           ${hasToken ? 'text-primary bg-primary/10 hover:bg-primary/15 border border-primary/20' : 'text-sf-muted bg-sf-card hover:bg-sf-hover border border-sf-border'}`}
         title={t('cloud.title')}
+        style={{ width: '88px' }}
       >
-        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+        <svg className="w-3.5 h-3.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
           <path strokeLinecap="round" strokeLinejoin="round"
             d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.338-2.32 3 3 0 013.182 4.377A3.75 3.75 0 0118 19.5H6.75z" />
         </svg>
-        {hasToken ? t('cloud.connected') : t('cloud.sync')}
+        <span className="truncate">{hasToken ? t('cloud.connected') : t('cloud.sync')}</span>
       </button>
 
       {/* Modal */}

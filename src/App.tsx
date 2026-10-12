@@ -32,21 +32,22 @@ function AutoSaveIndicator() {
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 flex-shrink-0">
       <button
         onClick={() => setAutoSave(!autoSave)}
-        className={`flex items-center gap-1.5 px-2 py-1 text-xs rounded transition-colors font-mono
+        className={`flex items-center gap-1.5 py-1 text-xs rounded transition-colors font-mono flex-shrink-0
           ${autoSave
             ? 'text-green-700 bg-green-50 hover:bg-green-500/15'
             : 'text-sf-muted bg-sf-card hover:bg-sf-hover'
           }`}
         title={autoSave ? t('autoSave.on') : t('autoSave.off')}
+        style={{ width: '80px' }}
       >
-        <span className={`w-1.5 h-1.5 rounded-full ${autoSave ? 'bg-green-500' : 'bg-dark-muted'}`} />
-        {autoSave ? t('autoSave.on') : t('autoSave.off')}
+        <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${autoSave ? 'bg-green-500' : 'bg-dark-muted'}`} />
+        <span className="truncate">{autoSave ? t('autoSave.on') : t('autoSave.off')}</span>
       </button>
       {showSaved && lastSavedAt && (
-        <span className="text-[10px] text-green-700/70 animate-pulse font-mono">
+        <span className="text-[10px] text-green-700/70 animate-pulse font-mono whitespace-nowrap">
           {t('autoSave.savedAt')} {formatTime(lastSavedAt)}
         </span>
       )}
@@ -114,17 +115,19 @@ function AppContent() {
           <LanguageSwitch />
           <button
             onClick={() => saveCurrentResume()}
-            className="px-3 py-1 text-xs font-medium text-sf-text border border-sf-border rounded
-                       hover:bg-sf-hover hover:border-sf-muted transition-colors font-mono"
+            className="py-1 text-xs font-medium text-sf-text border border-sf-border rounded
+                       hover:bg-sf-hover hover:border-sf-muted transition-colors font-mono flex-shrink-0"
+            style={{ width: '56px' }}
           >
-            {t('storage.save')}
+            <span className="block truncate text-center">{t('storage.save')}</span>
           </button>
           <button
             onClick={exportPdf}
-            className="px-3 py-1 text-xs font-medium text-white bg-primary rounded
-                       hover:bg-secondary transition-colors font-mono"
+            className="py-1 text-xs font-medium text-white bg-primary rounded
+                       hover:bg-secondary transition-colors font-mono flex-shrink-0"
+            style={{ width: '88px' }}
           >
-            {t('app.exportPdf')}
+            <span className="block truncate text-center">{t('app.exportPdf')}</span>
           </button>
         </div>
       </header>

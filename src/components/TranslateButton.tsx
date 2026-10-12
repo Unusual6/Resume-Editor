@@ -128,17 +128,20 @@ export default function TranslateButton() {
     <button
       onClick={handleTranslate}
       disabled={translating}
-      className={`px-2.5 py-1 text-xs font-medium rounded transition-colors font-mono
+      className={`py-1 text-xs font-medium rounded transition-colors font-mono flex-shrink-0
         ${translating
           ? 'bg-amber-500/20 text-amber-400 cursor-wait border border-amber-500/30'
           : 'text-primary border border-primary/30 hover:bg-primary/10'
         }`}
       title={t('translate.hint')}
+      style={{ width: '120px' }}
     >
-      {translating
-        ? `${t('translate.translating')} ${progress.current}/${progress.total}`
-        : `${t('translate.button')} → ${targetLang}`
-      }
+      <span className="block truncate text-center">
+        {translating
+          ? `${t('translate.translating')} ${progress.current}/${progress.total}`
+          : `${t('translate.button')} → ${targetLang}`
+        }
+      </span>
     </button>
   );
 }
