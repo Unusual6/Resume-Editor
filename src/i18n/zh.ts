@@ -105,4 +105,9 @@ export default {
     translating: '翻译中',
     hint: '将当前语言内容翻译为另一种语言',
   },
+  cloud: {
+    title: '云端同步',
+    sync: '云同步',
+    connected: '已连接',
+  },
 };

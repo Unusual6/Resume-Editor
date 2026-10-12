@@ -105,4 +105,9 @@ export default {
     translating: 'Translating',
     hint: 'Translate current content to the other language',
   },
+  cloud: {
+    title: 'Cloud Sync',
+    sync: 'Cloud',
+    connected: 'Connected',
+  },
 };

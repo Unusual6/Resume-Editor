@@ -8,6 +8,7 @@ import ResumePreview from './components/ResumePreview';
 import ResumeList from './components/ResumeList';
 import LanguageSwitch from './components/LanguageSwitch';
 import TranslateButton from './components/TranslateButton';
+import CloudSync from './components/CloudSync';
 
 // Debounced preview - only re-renders after typing stops
 const MemoizedPreview = memo(ResumePreview);
@@ -107,6 +108,7 @@ function AppContent() {
         </div>
         <div className="flex items-center gap-3">
           <AutoSaveIndicator />
+          <CloudSync />
           <TranslateButton />
           <LanguageSwitch />
           <button

@@ -185,6 +185,7 @@ interface ResumeContextType {
   deleteResume: (id: string) => void;
   renameResume: (id: string, name: string) => void;
   duplicateResume: (id: string) => void;
+  restoreEntries: (newEntries: ResumeEntry[]) => void;
   // Auto-save
   autoSave: boolean;
   setAutoSave: (v: boolean) => void;
@@ -348,12 +349,23 @@ export function ResumeProvider({ children }: { children: ReactNode }) {
     setData(newEntry.data);
   }, [entries]);
 
+  const restoreEntries = useCallback((newEntries: ResumeEntry[]) => {
+    setEntries(newEntries);
+    if (newEntries.length > 0) {
+      setCurrentId(newEntries[0].id);
+      setData(newEntries[0].data);
+    } else {
+      setCurrentId(null);
+      setData(defaultData);
+    }
+  }, []);
+
   return (
     <ResumeContext.Provider value={{
       data, setData, lang, setLang, template, setTemplate,
       entries, currentId,
       saveCurrentResume, createNewResume, loadResume,
-      deleteResume, renameResume, duplicateResume,
+      deleteResume, renameResume, duplicateResume, restoreEntries,
       autoSave, setAutoSave, lastSavedAt,
       reorderItems,
     }}>
