@@ -1,14 +1,32 @@
 /**
- * Free translation using MyMemory API (no API key required).
- * Supports CORS from browser.
- * Limit: ~5000 chars/day for anonymous users.
+ * Free translation using Lingva API (open-source Google Translate proxy).
+ * No API key required, no rate limits.
+ * Multiple public instances available for redundancy.
  */
 
-const API_URL = 'https://api.mymemory.translated.net/get';
+// Multiple Lingva instances for fallback
+const INSTANCES = [
+  'https://lingva.ml/api/v1',
+  'https://lingva.lunar.icu/api/v1',
+  'https://translate.plausibility.cloud/api/v1',
+];
 
 interface TranslationResult {
   translatedText: string;
   success: boolean;
+}
+
+async function tryTranslate(instance: string, text: string, from: string, to: string): Promise<string | null> {
+  try {
+    const response = await fetch(
+      `${instance}/${encodeURIComponent(from)}/${encodeURIComponent(to)}/${encodeURIComponent(text)}`
+    );
+    if (!response.ok) return null;
+    const data = await response.json();
+    return data.translation || null;
+  } catch {
+    return null;
+  }
 }
 
 export async function translateText(
@@ -20,42 +38,16 @@ export async function translateText(
     return { translatedText: '', success: true };
   }
 
-  const langPair = `${from}|${to}`;
-
-  try {
-    const response = await fetch(
-      `${API_URL}?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(langPair)}`
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+  // Try each instance until one succeeds
+  for (const instance of INSTANCES) {
+    const result = await tryTranslate(instance, text, from, to);
+    if (result) {
+      return { translatedText: result, success: true };
     }
-
-    const data = await response.json();
-
-    if (data.responseStatus === 200 && data.responseData?.translatedText) {
-      return {
-        translatedText: data.responseData.translatedText,
-        success: true,
-      };
-    }
-
-    // Fallback: try matches
-    if (data.matches && data.matches.length > 0) {
-      const best = data.matches.reduce((a: any, b: any) =>
-        (b.quality || 0) > (a.quality || 0) ? b : a
-      );
-      return {
-        translatedText: best.translation || '',
-        success: true,
-      };
-    }
-
-    return { translatedText: '', success: false };
-  } catch (error) {
-    console.error('Translation error:', error);
-    return { translatedText: '', success: false };
   }
+
+  console.error('All translation instances failed');
+  return { translatedText: '', success: false };
 }
 
 /**
