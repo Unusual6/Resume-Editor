@@ -7,7 +7,6 @@ import ResumeForm from './components/ResumeForm';
 import ResumePreview from './components/ResumePreview';
 import ResumeList from './components/ResumeList';
 import LanguageSwitch from './components/LanguageSwitch';
-import TranslateButton from './components/TranslateButton';
 import CloudSync from './components/CloudSync';
 
 const MemoizedPreview = memo(ResumePreview);
@@ -111,7 +110,6 @@ function AppContent() {
         <div className="flex items-center gap-2">
           <AutoSaveIndicator />
           <CloudSync />
-          <TranslateButton />
           <LanguageSwitch />
           <button
             onClick={() => saveCurrentResume()}
