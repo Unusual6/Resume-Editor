@@ -70,9 +70,9 @@ export default function EducationSection() {
               <input className="input-field" placeholder={t('form.endDate')} type="month"
                 value={edu.endDate} onChange={e => updateEducation(edu.id, 'endDate', e.target.value)} />
             </div>
-            <textarea className="input-field resize-none" rows={2} placeholder={t('placeholder.description')}
+            <textarea className="input-field resize-none" rows={4} placeholder={t('placeholder.description')}
               value={edu.description} onChange={e => updateEducation(edu.id, 'description', e.target.value)} />
-            <textarea className="input-field resize-none" rows={2} placeholder="Description (EN)"
+            <textarea className="input-field resize-none" rows={4} placeholder="Description (EN)"
               value={edu.descriptionEn} onChange={e => updateEducation(edu.id, 'descriptionEn', e.target.value)} />
           </div>
         )}

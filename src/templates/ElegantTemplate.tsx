@@ -5,7 +5,7 @@ const ACCENT = '#7c6f64';
 const SIDEBAR_BG = '#faf8f5';
 
 const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { data, bio, l, ld, serifFont, t } = useResumeData();
+  const { data, bio, l, ld, serifFont, t, renderFormattedText } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white flex" style={{ fontFamily: serifFont }}>
@@ -58,7 +58,7 @@ const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
       {/* Main */}
       <div className="flex-1 px-7 py-7 space-y-5">
         {l('summary', 'summaryEn', bio) && (
-          <p className="text-xs leading-loose italic" style={{ color: '#6b6259' }}>{l('summary', 'summaryEn', bio)}</p>
+          <p className="text-xs leading-loose italic" style={{ color: '#6b6259' }}>{renderFormattedText(l('summary', 'summaryEn', bio))}</p>
         )}
 
         {data.experiences.length > 0 && (
@@ -71,7 +71,7 @@ const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
                   <span className="text-[10px]" style={{ color: '#a89e94' }}>{exp.startDate} — {ld(exp.endDate)}</span>
                 </div>
                 <p className="text-[11px] italic mt-0.5" style={{ color: ACCENT }}>{l('position', 'positionEn', exp)}</p>
-                {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#5a534b' }}>{l('description', 'descriptionEn', exp)}</p>}
+                {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#5a534b' }}>{renderFormattedText(l('description', 'descriptionEn', exp))}</p>}
               </div>
             ))}
           </div>
@@ -87,7 +87,7 @@ const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
                   <span className="text-[10px]" style={{ color: '#a89e94' }}>{proj.startDate} — {ld(proj.endDate)}</span>
                 </div>
                 {proj.techStack && <p className="text-[10px] mt-0.5" style={{ color: '#8a8078' }}>{proj.techStack}</p>}
-                {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#5a534b' }}>{l('description', 'descriptionEn', proj)}</p>}
+                {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#5a534b' }}>{renderFormattedText(l('description', 'descriptionEn', proj))}</p>}
               </div>
             ))}
           </div>

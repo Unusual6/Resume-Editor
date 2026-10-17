@@ -4,7 +4,7 @@ import { useResumeData } from '../utils/useResumeData';
 const ACCENT = '#2563eb';
 
 const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { data, isZh, bio, l, ld, font, t } = useResumeData();
+  const { data, isZh, bio, l, ld, font, t, renderFormattedText } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white" style={{ fontFamily: font }}>
@@ -25,7 +25,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
           </div>
         </div>
         {l('summary', 'summaryEn', bio) && (
-          <p className="mt-3 text-xs leading-relaxed" style={{ color: '#475569' }}>{l('summary', 'summaryEn', bio)}</p>
+          <p className="mt-3 text-xs leading-relaxed" style={{ color: '#475569' }}>{renderFormattedText(l('summary', 'summaryEn', bio))}</p>
         )}
       </div>
 
@@ -37,7 +37,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
                 left={l('company', 'companyEn', exp)}
                 right={`${exp.startDate} ~ ${ld(exp.endDate)}`}
                 sub={l('position', 'positionEn', exp)}
-                desc={l('description', 'descriptionEn', exp)}
+                desc={renderFormattedText(l('description', 'descriptionEn', exp))}
               />
             ))}
           </Section>
@@ -50,7 +50,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
                 left={l('name', 'nameEn', proj)}
                 right={`${proj.startDate} ~ ${ld(proj.endDate)}`}
                 sub={[l('role', 'roleEn', proj), proj.techStack].filter(Boolean).join(' · ')}
-                desc={l('description', 'descriptionEn', proj)}
+                desc={renderFormattedText(l('description', 'descriptionEn', proj))}
               />
             ))}
           </Section>
@@ -63,7 +63,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
                 left={l('school', 'schoolEn', edu)}
                 right={`${edu.startDate} ~ ${ld(edu.endDate)}`}
                 sub={[l('degree', 'degreeEn', edu), l('major', 'majorEn', edu)].filter(Boolean).join(' · ')}
-                desc={l('description', 'descriptionEn', edu)}
+                desc={renderFormattedText(l('description', 'descriptionEn', edu))}
               />
             ))}
           </Section>
@@ -97,7 +97,7 @@ function Section({ title, accent, children }: { title: string; accent: string; c
   );
 }
 
-function Entry({ left, right, sub, desc }: { left: string; right: string; sub: string; desc: string }) {
+function Entry({ left, right, sub, desc }: { left: string; right: string; sub: string; desc: React.ReactNode }) {
   return (
     <div className="mb-2.5 last:mb-0">
       <div className="flex justify-between items-baseline">

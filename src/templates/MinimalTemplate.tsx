@@ -4,7 +4,7 @@ import { useResumeData } from '../utils/useResumeData';
 const ACCENT = '#6b7280';
 
 const MinimalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { data, bio, l, ld, font, t } = useResumeData();
+  const { data, bio, l, ld, font, t, renderFormattedText } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white" style={{ fontFamily: font }}>
@@ -26,7 +26,7 @@ const MinimalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
 
       <div className="px-12 pb-8 space-y-5">
         {l('summary', 'summaryEn', bio) && (
-          <p className="text-xs leading-loose text-center" style={{ color: '#6b7280' }}>{l('summary', 'summaryEn', bio)}</p>
+          <p className="text-xs leading-loose text-center" style={{ color: '#6b7280' }}>{renderFormattedText(l('summary', 'summaryEn', bio))}</p>
         )}
 
         {data.experiences.length > 0 && (
@@ -39,7 +39,7 @@ const MinimalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
                   <span className="text-[10px]" style={{ color: '#c0c4ca' }}>{exp.startDate} — {ld(exp.endDate)}</span>
                 </div>
                 <p className="text-[11px] mt-0.5" style={{ color: '#9ca3af' }}>{l('position', 'positionEn', exp)}</p>
-                {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#6b7280' }}>{l('description', 'descriptionEn', exp)}</p>}
+                {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#6b7280' }}>{renderFormattedText(l('description', 'descriptionEn', exp))}</p>}
               </div>
             ))}
           </div>
@@ -55,7 +55,7 @@ const MinimalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
                   <span className="text-[10px]" style={{ color: '#c0c4ca' }}>{proj.startDate} — {ld(proj.endDate)}</span>
                 </div>
                 {proj.techStack && <p className="text-[10px] mt-0.5" style={{ color: '#9ca3af' }}>{proj.techStack}</p>}
-                {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#6b7280' }}>{l('description', 'descriptionEn', proj)}</p>}
+                {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#6b7280' }}>{renderFormattedText(l('description', 'descriptionEn', proj))}</p>}
               </div>
             ))}
           </div>

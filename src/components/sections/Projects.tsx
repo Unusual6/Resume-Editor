@@ -65,9 +65,9 @@ export default function ProjectsSection() {
             </div>
             <input className="input-field" placeholder={t('placeholder.techStack')}
               value={proj.techStack} onChange={e => update(proj.id, 'techStack', e.target.value)} />
-            <textarea className="input-field resize-none" rows={3} placeholder={t('placeholder.description')}
+            <textarea className="input-field resize-none" rows={6} placeholder={t('placeholder.description')}
               value={proj.description} onChange={e => update(proj.id, 'description', e.target.value)} />
-            <textarea className="input-field resize-none" rows={3} placeholder="Description (EN)"
+            <textarea className="input-field resize-none" rows={6} placeholder="Description (EN)"
               value={proj.descriptionEn} onChange={e => update(proj.id, 'descriptionEn', e.target.value)} />
           </div>
         )}

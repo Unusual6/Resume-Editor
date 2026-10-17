@@ -5,7 +5,7 @@ const ACCENT = '#7c3aed';
 const HEADER_BG = 'linear-gradient(135deg, #ede9fe 0%, #f0f9ff 100%)';
 
 const CreativeTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { data, bio, l, ld, font, t } = useResumeData();
+  const { data, bio, l, ld, font, t, renderFormattedText } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white" style={{ fontFamily: font }}>
@@ -26,7 +26,7 @@ const CreativeTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
           </div>
         </div>
         {l('summary', 'summaryEn', bio) && (
-          <p className="mt-3 text-xs leading-relaxed" style={{ color: '#4338ca' }}>{l('summary', 'summaryEn', bio)}</p>
+          <p className="mt-3 text-xs leading-relaxed" style={{ color: '#4338ca' }}>{renderFormattedText(l('summary', 'summaryEn', bio))}</p>
         )}
       </div>
 
@@ -41,7 +41,7 @@ const CreativeTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
                   <span className="text-[10px]" style={{ color: '#a5b4fc' }}>{exp.startDate} ~ {ld(exp.endDate)}</span>
                 </div>
                 <p className="text-[11px] mt-0.5" style={{ color: '#7c3aed' }}>{l('position', 'positionEn', exp)}</p>
-                {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }}>{l('description', 'descriptionEn', exp)}</p>}
+                {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }}>{renderFormattedText(l('description', 'descriptionEn', exp))}</p>}
               </div>
             ))}
           </div>
@@ -57,7 +57,7 @@ const CreativeTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
                   <span className="text-[10px]" style={{ color: '#a5b4fc' }}>{proj.startDate} ~ {ld(proj.endDate)}</span>
                 </div>
                 <p className="text-[11px] mt-0.5" style={{ color: '#7c3aed' }}>{[l('role', 'roleEn', proj), proj.techStack].filter(Boolean).join(' · ')}</p>
-                {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }}>{l('description', 'descriptionEn', proj)}</p>}
+                {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }}>{renderFormattedText(l('description', 'descriptionEn', proj))}</p>}
               </div>
             ))}
           </div>

@@ -62,9 +62,9 @@ export default function ExperienceSection() {
               <input className="input-field" placeholder={t('form.endDate')} type="month"
                 value={exp.endDate} onChange={e => update(exp.id, 'endDate', e.target.value)} />
             </div>
-            <textarea className="input-field resize-none" rows={3} placeholder={t('placeholder.description')}
+            <textarea className="input-field resize-none" rows={6} placeholder={t('placeholder.description')}
               value={exp.description} onChange={e => update(exp.id, 'description', e.target.value)} />
-            <textarea className="input-field resize-none" rows={3} placeholder="Description (EN)"
+            <textarea className="input-field resize-none" rows={6} placeholder="Description (EN)"
               value={exp.descriptionEn} onChange={e => update(exp.id, 'descriptionEn', e.target.value)} />
           </div>
         )}

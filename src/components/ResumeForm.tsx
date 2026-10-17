@@ -44,9 +44,9 @@ export default function ResumeForm() {
               value={bio.address} onChange={e => updateBio('address', e.target.value)} />
             <input className="input-field" placeholder="Address (EN)"
               value={bio.addressEn} onChange={e => updateBio('addressEn', e.target.value)} />
-            <textarea className="input-field resize-none" rows={3} placeholder={t('placeholder.summary')}
+            <textarea className="input-field resize-none" rows={5} placeholder={t('placeholder.summary')}
               value={bio.summary} onChange={e => updateBio('summary', e.target.value)} />
-            <textarea className="input-field resize-none" rows={3} placeholder="Summary (EN)"
+            <textarea className="input-field resize-none" rows={5} placeholder="Summary (EN)"
               value={bio.summaryEn} onChange={e => updateBio('summaryEn', e.target.value)} />
           </div>
           <PhotoUpload />

@@ -1,6 +1,7 @@
 import { useResume } from '../context/ResumeContext';
 import { useTranslation } from 'react-i18next';
 import { localizeDate } from './date';
+import { renderFormattedText } from './renderText';
 
 export function useResumeData() {
   const { lang, data } = useResume();
@@ -21,5 +22,5 @@ export function useResumeData() {
     ? '"Noto Serif SC", "Source Han Serif SC", "STSong", serif'
     : '"Georgia", "Times New Roman", serif';
 
-  return { lang, data, t, isZh, bio, l, ld, font, serifFont };
+  return { lang, data, t, isZh, bio, l, ld, font, serifFont, renderFormattedText };
 }

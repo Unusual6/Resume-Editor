@@ -4,7 +4,7 @@ import { useResumeData } from '../utils/useResumeData';
 const ACCENT = '#0369a1';
 
 const CompactTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { data, bio, l, ld, font, t } = useResumeData();
+  const { data, bio, l, ld, font, t, renderFormattedText } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white" style={{ fontFamily: font }}>
@@ -27,7 +27,7 @@ const CompactTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
           </div>
         </div>
         {l('summary', 'summaryEn', bio) && (
-          <p className="mt-2 text-[11px] leading-relaxed" style={{ color: '#475569' }}>{l('summary', 'summaryEn', bio)}</p>
+          <p className="mt-2 text-[11px] leading-relaxed" style={{ color: '#475569' }}>{renderFormattedText(l('summary', 'summaryEn', bio))}</p>
         )}
       </div>
 
@@ -45,7 +45,7 @@ const CompactTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
                     <span className="text-[9px]" style={{ color: '#94a3b8' }}>{exp.startDate}~{ld(exp.endDate)}</span>
                   </div>
                   <p className="text-[10px]" style={{ color: '#64748b' }}>{l('position', 'positionEn', exp)}</p>
-                  {l('description', 'descriptionEn', exp) && <p className="text-[10px] mt-0.5 leading-relaxed" style={{ color: '#475569' }}>{l('description', 'descriptionEn', exp)}</p>}
+                  {l('description', 'descriptionEn', exp) && <p className="text-[10px] mt-0.5 leading-relaxed" style={{ color: '#475569' }}>{renderFormattedText(l('description', 'descriptionEn', exp))}</p>}
                 </div>
               ))}
             </div>
@@ -61,7 +61,7 @@ const CompactTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
                     <span className="text-[9px]" style={{ color: '#94a3b8' }}>{proj.startDate}~{ld(proj.endDate)}</span>
                   </div>
                   <p className="text-[10px]" style={{ color: '#64748b' }}>{[l('role', 'roleEn', proj), proj.techStack].filter(Boolean).join(' · ')}</p>
-                  {l('description', 'descriptionEn', proj) && <p className="text-[10px] mt-0.5 leading-relaxed" style={{ color: '#475569' }}>{l('description', 'descriptionEn', proj)}</p>}
+                  {l('description', 'descriptionEn', proj) && <p className="text-[10px] mt-0.5 leading-relaxed" style={{ color: '#475569' }}>{renderFormattedText(l('description', 'descriptionEn', proj))}</p>}
                 </div>
               ))}
             </div>
