@@ -256,7 +256,7 @@ export function ResumeProvider({ children }: { children: ReactNode }) {
     autoSaveTimer.current = setTimeout(() => {
       setEntries(prev => prev.map(e =>
         e.id === currentId
-          ? { ...e, name: data.basicInfo.name || data.basicInfo.nameEn || 'Untitled', updatedAt: Date.now(), data: { ...data } }
+          ? { ...e, updatedAt: Date.now(), data: { ...data } }
           : e
       ));
       setLastSavedAt(Date.now());
@@ -271,15 +271,15 @@ export function ResumeProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const saveCurrentResume = useCallback((name?: string) => {
-    const resumeName = name || data.basicInfo.name || data.basicInfo.nameEn || 'Untitled';
     if (currentId) {
       setEntries(prev => prev.map(e =>
         e.id === currentId
-          ? { ...e, name: resumeName, updatedAt: Date.now(), data: { ...data } }
+          ? { ...e, updatedAt: Date.now(), data: { ...data } }
           : e
       ));
     } else {
       const newId = genId();
+      const resumeName = name || data.basicInfo.name || data.basicInfo.nameEn || 'Untitled';
       const newEntry: ResumeEntry = {
         id: newId,
         name: resumeName,
