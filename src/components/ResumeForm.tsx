@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useResume } from '../context/ResumeContext';
 import PhotoUpload from './PhotoUpload';
+import FormattedTextarea from './FormattedTextarea';
 import EducationSection from './sections/Education';
 import ExperienceSection from './sections/Experience';
 import ProjectsSection from './sections/Projects';
@@ -44,10 +45,10 @@ export default function ResumeForm() {
               value={bio.address} onChange={e => updateBio('address', e.target.value)} />
             <input className="input-field" placeholder="Address (EN)"
               value={bio.addressEn} onChange={e => updateBio('addressEn', e.target.value)} />
-            <textarea className="input-field resize-none" rows={5} placeholder={t('placeholder.summary')}
-              value={bio.summary} onChange={e => updateBio('summary', e.target.value)} />
-            <textarea className="input-field resize-none" rows={5} placeholder="Summary (EN)"
-              value={bio.summaryEn} onChange={e => updateBio('summaryEn', e.target.value)} />
+            <FormattedTextarea value={bio.summary} onChange={v => updateBio('summary', v)}
+              placeholder={t('placeholder.summary')} rows={5} />
+            <FormattedTextarea value={bio.summaryEn} onChange={v => updateBio('summaryEn', v)}
+              placeholder="Summary (EN)" rows={5} />
           </div>
           <PhotoUpload />
         </div>

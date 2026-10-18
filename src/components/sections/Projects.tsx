@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useResume } from '../../context/ResumeContext';
 import { Project } from '../../types/resume';
 import SortableList from '../SortableList';
+import FormattedTextarea from '../FormattedTextarea';
 
 export default function ProjectsSection() {
   const { t } = useTranslation();
@@ -65,10 +66,10 @@ export default function ProjectsSection() {
             </div>
             <input className="input-field" placeholder={t('placeholder.techStack')}
               value={proj.techStack} onChange={e => update(proj.id, 'techStack', e.target.value)} />
-            <textarea className="input-field resize-none" rows={6} placeholder={t('placeholder.description')}
-              value={proj.description} onChange={e => update(proj.id, 'description', e.target.value)} />
-            <textarea className="input-field resize-none" rows={6} placeholder="Description (EN)"
-              value={proj.descriptionEn} onChange={e => update(proj.id, 'descriptionEn', e.target.value)} />
+            <FormattedTextarea value={proj.description} onChange={v => update(proj.id, 'description', v)}
+              placeholder={t('placeholder.description')} rows={6} />
+            <FormattedTextarea value={proj.descriptionEn} onChange={v => update(proj.id, 'descriptionEn', v)}
+              placeholder="Description (EN)" rows={6} />
           </div>
         )}
       />

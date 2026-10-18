@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useResume } from '../../context/ResumeContext';
 import { Education } from '../../types/resume';
 import SortableList from '../SortableList';
+import FormattedTextarea from '../FormattedTextarea';
 
 export default function EducationSection() {
   const { t } = useTranslation();
@@ -70,10 +71,10 @@ export default function EducationSection() {
               <input className="input-field" placeholder={t('form.endDate')} type="month"
                 value={edu.endDate} onChange={e => updateEducation(edu.id, 'endDate', e.target.value)} />
             </div>
-            <textarea className="input-field resize-none" rows={4} placeholder={t('placeholder.description')}
-              value={edu.description} onChange={e => updateEducation(edu.id, 'description', e.target.value)} />
-            <textarea className="input-field resize-none" rows={4} placeholder="Description (EN)"
-              value={edu.descriptionEn} onChange={e => updateEducation(edu.id, 'descriptionEn', e.target.value)} />
+            <FormattedTextarea value={edu.description} onChange={v => updateEducation(edu.id, 'description', v)}
+              placeholder={t('placeholder.description')} rows={4} />
+            <FormattedTextarea value={edu.descriptionEn} onChange={v => updateEducation(edu.id, 'descriptionEn', v)}
+              placeholder="Description (EN)" rows={4} />
           </div>
         )}
       />

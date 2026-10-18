@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useResume } from '../../context/ResumeContext';
 import { Experience } from '../../types/resume';
 import SortableList from '../SortableList';
+import FormattedTextarea from '../FormattedTextarea';
 
 export default function ExperienceSection() {
   const { t } = useTranslation();
@@ -62,10 +63,10 @@ export default function ExperienceSection() {
               <input className="input-field" placeholder={t('form.endDate')} type="month"
                 value={exp.endDate} onChange={e => update(exp.id, 'endDate', e.target.value)} />
             </div>
-            <textarea className="input-field resize-none" rows={6} placeholder={t('placeholder.description')}
-              value={exp.description} onChange={e => update(exp.id, 'description', e.target.value)} />
-            <textarea className="input-field resize-none" rows={6} placeholder="Description (EN)"
-              value={exp.descriptionEn} onChange={e => update(exp.id, 'descriptionEn', e.target.value)} />
+            <FormattedTextarea value={exp.description} onChange={v => update(exp.id, 'description', v)}
+              placeholder={t('placeholder.description')} rows={6} />
+            <FormattedTextarea value={exp.descriptionEn} onChange={v => update(exp.id, 'descriptionEn', v)}
+              placeholder="Description (EN)" rows={6} />
           </div>
         )}
       />
