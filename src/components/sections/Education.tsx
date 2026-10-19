@@ -54,26 +54,26 @@ export default function EducationSection() {
               </button>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              <input className="input-field" placeholder={t('placeholder.school')}
+              <input id={`field-${edu.id}-school`} className="input-field" placeholder={t('placeholder.school')}
                 value={edu.school} onChange={e => updateEducation(edu.id, 'school', e.target.value)} />
-              <input className="input-field" placeholder="School (EN)"
+              <input id={`field-${edu.id}-schoolEn`} className="input-field" placeholder="School (EN)"
                 value={edu.schoolEn} onChange={e => updateEducation(edu.id, 'schoolEn', e.target.value)} />
-              <input className="input-field" placeholder={t('placeholder.degree')}
+              <input id={`field-${edu.id}-degree`} className="input-field" placeholder={t('placeholder.degree')}
                 value={edu.degree} onChange={e => updateEducation(edu.id, 'degree', e.target.value)} />
-              <input className="input-field" placeholder="Degree (EN)"
+              <input id={`field-${edu.id}-degreeEn`} className="input-field" placeholder="Degree (EN)"
                 value={edu.degreeEn} onChange={e => updateEducation(edu.id, 'degreeEn', e.target.value)} />
-              <input className="input-field" placeholder={t('placeholder.major')}
+              <input id={`field-${edu.id}-major`} className="input-field" placeholder={t('placeholder.major')}
                 value={edu.major} onChange={e => updateEducation(edu.id, 'major', e.target.value)} />
-              <input className="input-field" placeholder="Major (EN)"
+              <input id={`field-${edu.id}-majorEn`} className="input-field" placeholder="Major (EN)"
                 value={edu.majorEn} onChange={e => updateEducation(edu.id, 'majorEn', e.target.value)} />
-              <input className="input-field" placeholder={t('form.startDate')} type="month"
+              <input id={`field-${edu.id}-startDate`} className="input-field" placeholder={t('form.startDate')} type="month"
                 value={edu.startDate} onChange={e => updateEducation(edu.id, 'startDate', e.target.value)} />
-              <input className="input-field" placeholder={t('form.endDate')} type="month"
+              <input id={`field-${edu.id}-endDate`} className="input-field" placeholder={t('form.endDate')} type="month"
                 value={edu.endDate} onChange={e => updateEducation(edu.id, 'endDate', e.target.value)} />
             </div>
-            <FormattedTextarea value={edu.description} onChange={v => updateEducation(edu.id, 'description', v)}
+            <FormattedTextarea id={`field-${edu.id}-description`} value={edu.description} onChange={v => updateEducation(edu.id, 'description', v)}
               placeholder={t('placeholder.description')} rows={4} />
-            <FormattedTextarea value={edu.descriptionEn} onChange={v => updateEducation(edu.id, 'descriptionEn', v)}
+            <FormattedTextarea id={`field-${edu.id}-descriptionEn`} value={edu.descriptionEn} onChange={v => updateEducation(edu.id, 'descriptionEn', v)}
               placeholder="Description (EN)" rows={4} />
           </div>
         )}

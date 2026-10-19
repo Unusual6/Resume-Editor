@@ -50,22 +50,22 @@ export default function ExperienceSection() {
               </button>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              <input className="input-field" placeholder={t('placeholder.company')}
+              <input id={`field-${exp.id}-company`} className="input-field" placeholder={t('placeholder.company')}
                 value={exp.company} onChange={e => update(exp.id, 'company', e.target.value)} />
-              <input className="input-field" placeholder="Company (EN)"
+              <input id={`field-${exp.id}-companyEn`} className="input-field" placeholder="Company (EN)"
                 value={exp.companyEn} onChange={e => update(exp.id, 'companyEn', e.target.value)} />
-              <input className="input-field" placeholder={t('placeholder.position')}
+              <input id={`field-${exp.id}-position`} className="input-field" placeholder={t('placeholder.position')}
                 value={exp.position} onChange={e => update(exp.id, 'position', e.target.value)} />
-              <input className="input-field" placeholder="Position (EN)"
+              <input id={`field-${exp.id}-positionEn`} className="input-field" placeholder="Position (EN)"
                 value={exp.positionEn} onChange={e => update(exp.id, 'positionEn', e.target.value)} />
-              <input className="input-field" placeholder={t('form.startDate')} type="month"
+              <input id={`field-${exp.id}-startDate`} className="input-field" placeholder={t('form.startDate')} type="month"
                 value={exp.startDate} onChange={e => update(exp.id, 'startDate', e.target.value)} />
-              <input className="input-field" placeholder={t('form.endDate')} type="month"
+              <input id={`field-${exp.id}-endDate`} className="input-field" placeholder={t('form.endDate')} type="month"
                 value={exp.endDate} onChange={e => update(exp.id, 'endDate', e.target.value)} />
             </div>
-            <FormattedTextarea value={exp.description} onChange={v => update(exp.id, 'description', v)}
+            <FormattedTextarea id={`field-${exp.id}-description`} value={exp.description} onChange={v => update(exp.id, 'description', v)}
               placeholder={t('placeholder.description')} rows={6} />
-            <FormattedTextarea value={exp.descriptionEn} onChange={v => update(exp.id, 'descriptionEn', v)}
+            <FormattedTextarea id={`field-${exp.id}-descriptionEn`} value={exp.descriptionEn} onChange={v => update(exp.id, 'descriptionEn', v)}
               placeholder="Description (EN)" rows={6} />
           </div>
         )}

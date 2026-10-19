@@ -5,9 +5,10 @@ interface Props {
   onChange: (value: string) => void;
   placeholder?: string;
   rows?: number;
+  id?: string;
 }
 
-export default function FormattedTextarea({ value, onChange, placeholder, rows = 5 }: Props) {
+export default function FormattedTextarea({ value, onChange, placeholder, rows = 5, id }: Props) {
   const ref = useRef<HTMLTextAreaElement>(null);
 
   const update = useCallback((before: string, after: string, newCursorPos?: number) => {
@@ -93,6 +94,7 @@ export default function FormattedTextarea({ value, onChange, placeholder, rows =
       </div>
       <textarea
         ref={ref}
+        id={id}
         className="input-field resize-none"
         rows={rows}
         placeholder={placeholder}

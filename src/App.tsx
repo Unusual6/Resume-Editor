@@ -60,6 +60,32 @@ function AppContent() {
   const previewRef = useRef<HTMLDivElement>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
+  // Click-to-focus: clicking preview text scrolls & highlights the corresponding form field
+  const handlePreviewClick = useCallback((e: React.MouseEvent) => {
+    const target = e.target as HTMLElement;
+    const fieldEl = target.closest('[data-field]');
+    if (!fieldEl) return;
+
+    const field = fieldEl.getAttribute('data-field');
+    if (!field) return;
+
+    const formField = document.getElementById(`field-${field}`);
+    if (!formField) return;
+
+    formField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+    // Brief delay to let scroll settle, then focus + highlight
+    setTimeout(() => {
+      formField.focus();
+      formField.classList.add('field-highlight');
+      const onEnd = () => {
+        formField.classList.remove('field-highlight');
+        formField.removeEventListener('animationend', onEnd);
+      };
+      formField.addEventListener('animationend', onEnd);
+    }, 300);
+  }, []);
+
   const exportPdf = useCallback(async () => {
     const el = previewRef.current;
     if (!el) return;
@@ -143,7 +169,7 @@ function AppContent() {
         </aside>
 
         <main className="flex-1 overflow-auto custom-scrollbar bg-sf-bg p-8 flex justify-center">
-          <div className="transform origin-top" style={{ maxWidth: '210mm' }}>
+          <div className="transform origin-top" style={{ maxWidth: '210mm' }} onClick={handlePreviewClick}>
             <MemoizedPreview ref={previewRef} />
           </div>
         </main>

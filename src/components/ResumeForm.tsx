@@ -26,28 +26,28 @@ export default function ResumeForm() {
         <div className="flex gap-4">
           <div className="flex-1 space-y-2">
             <div className="grid grid-cols-2 gap-2">
-              <input className="input-field" placeholder={t('placeholder.name')}
+              <input id="field-basicInfo-name" className="input-field" placeholder={t('placeholder.name')}
                 value={bio.name} onChange={e => updateBio('name', e.target.value)} />
-              <input className="input-field" placeholder="Name (EN)"
+              <input id="field-basicInfo-nameEn" className="input-field" placeholder="Name (EN)"
                 value={bio.nameEn} onChange={e => updateBio('nameEn', e.target.value)} />
-              <input className="input-field" placeholder={t('placeholder.title')}
+              <input id="field-basicInfo-title" className="input-field" placeholder={t('placeholder.title')}
                 value={bio.title} onChange={e => updateBio('title', e.target.value)} />
-              <input className="input-field" placeholder="Title (EN)"
+              <input id="field-basicInfo-titleEn" className="input-field" placeholder="Title (EN)"
                 value={bio.titleEn} onChange={e => updateBio('titleEn', e.target.value)} />
             </div>
             <div className="grid grid-cols-2 gap-2">
-              <input className="input-field" placeholder={t('placeholder.email')} type="email"
+              <input id="field-basicInfo-email" className="input-field" placeholder={t('placeholder.email')} type="email"
                 value={bio.email} onChange={e => updateBio('email', e.target.value)} />
-              <input className="input-field" placeholder={t('placeholder.phone')}
+              <input id="field-basicInfo-phone" className="input-field" placeholder={t('placeholder.phone')}
                 value={bio.phone} onChange={e => updateBio('phone', e.target.value)} />
             </div>
-            <input className="input-field" placeholder={t('placeholder.address')}
+            <input id="field-basicInfo-address" className="input-field" placeholder={t('placeholder.address')}
               value={bio.address} onChange={e => updateBio('address', e.target.value)} />
-            <input className="input-field" placeholder="Address (EN)"
+            <input id="field-basicInfo-addressEn" className="input-field" placeholder="Address (EN)"
               value={bio.addressEn} onChange={e => updateBio('addressEn', e.target.value)} />
-            <FormattedTextarea value={bio.summary} onChange={v => updateBio('summary', v)}
+            <FormattedTextarea id="field-basicInfo-summary" value={bio.summary} onChange={v => updateBio('summary', v)}
               placeholder={t('placeholder.summary')} rows={5} />
-            <FormattedTextarea value={bio.summaryEn} onChange={v => updateBio('summaryEn', v)}
+            <FormattedTextarea id="field-basicInfo-summaryEn" value={bio.summaryEn} onChange={v => updateBio('summaryEn', v)}
               placeholder="Summary (EN)" rows={5} />
           </div>
           <PhotoUpload />

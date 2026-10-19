@@ -4,7 +4,7 @@ import { useResumeData } from '../utils/useResumeData';
 const ACCENT = '#0f766e';
 
 const ProfessionalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { data, bio, l, ld, font, t, renderFormattedText } = useResumeData();
+  const { data, isZh, bio, l, ld, font, t, renderFormattedText, fk } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white" style={{ fontFamily: font }}>
@@ -19,12 +19,12 @@ const ProfessionalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <img src={bio.photo} alt="" className="w-18 h-18 rounded-lg object-cover flex-shrink-0" style={{ width: 68, height: 68 }} />
             )}
             <div className="flex-1">
-              <h1 className="text-2xl font-bold" style={{ color: '#1e293b' }}>{l('name', 'nameEn', bio)}</h1>
-              <p className="text-sm mt-0.5" style={{ color: ACCENT }}>{l('title', 'titleEn', bio)}</p>
+              <h1 className="text-2xl font-bold" style={{ color: '#1e293b' }} {...fk('name', 'nameEn')}>{l('name', 'nameEn', bio)}</h1>
+              <p className="text-sm mt-0.5" style={{ color: ACCENT }} {...fk('title', 'titleEn')}>{l('title', 'titleEn', bio)}</p>
               <div className="flex flex-wrap gap-x-4 gap-y-0.5 mt-1.5 text-[11px]" style={{ color: '#64748b' }}>
-                {bio.email && <span>{bio.email}</span>}
-                {bio.phone && <span>{bio.phone}</span>}
-                {l('address', 'addressEn', bio) && <span>{l('address', 'addressEn', bio)}</span>}
+                {bio.email && <span data-field="email">{bio.email}</span>}
+                {bio.phone && <span data-field="phone">{bio.phone}</span>}
+                {l('address', 'addressEn', bio) && <span data-field={isZh ? 'address' : 'addressEn'}>{l('address', 'addressEn', bio)}</span>}
               </div>
             </div>
           </div>
@@ -32,7 +32,7 @@ const ProfessionalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
 
         <div className="pr-10 py-5 space-y-5">
           {l('summary', 'summaryEn', bio) && (
-            <p className="text-xs leading-relaxed" style={{ color: '#475569' }}>{renderFormattedText(l('summary', 'summaryEn', bio))}</p>
+            <p className="text-xs leading-relaxed" style={{ color: '#475569' }} {...fk('summary', 'summaryEn')}>{renderFormattedText(l('summary', 'summaryEn', bio))}</p>
           )}
 
           {data.experiences.length > 0 && (
@@ -41,11 +41,11 @@ const ProfessionalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               {data.experiences.map(exp => (
                 <div key={exp.id} className="mb-2.5 last:mb-0 pl-3" style={{ borderLeft: `2px solid ${ACCENT}20` }}>
                   <div className="flex justify-between items-baseline">
-                    <span className="text-sm font-semibold" style={{ color: '#1e293b' }}>{l('company', 'companyEn', exp)}</span>
+                    <span className="text-sm font-semibold" style={{ color: '#1e293b' }} {...fk('company', 'companyEn', exp.id)}>{l('company', 'companyEn', exp)}</span>
                     <span className="text-[10px]" style={{ color: '#94a3b8' }}>{exp.startDate} ~ {ld(exp.endDate)}</span>
                   </div>
-                  <p className="text-[11px] mt-0.5" style={{ color: '#64748b' }}>{l('position', 'positionEn', exp)}</p>
-                  {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }}>{renderFormattedText(l('description', 'descriptionEn', exp))}</p>}
+                  <p className="text-[11px] mt-0.5" style={{ color: '#64748b' }} {...fk('position', 'positionEn', exp.id)}>{l('position', 'positionEn', exp)}</p>
+                  {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }} {...fk('description', 'descriptionEn', exp.id)}>{renderFormattedText(l('description', 'descriptionEn', exp))}</p>}
                 </div>
               ))}
             </div>
@@ -57,11 +57,11 @@ const ProfessionalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               {data.projects.map(proj => (
                 <div key={proj.id} className="mb-2.5 last:mb-0 pl-3" style={{ borderLeft: `2px solid ${ACCENT}20` }}>
                   <div className="flex justify-between items-baseline">
-                    <span className="text-sm font-semibold" style={{ color: '#1e293b' }}>{l('name', 'nameEn', proj)}</span>
+                    <span className="text-sm font-semibold" style={{ color: '#1e293b' }} {...fk('name', 'nameEn', proj.id)}>{l('name', 'nameEn', proj)}</span>
                     <span className="text-[10px]" style={{ color: '#94a3b8' }}>{proj.startDate} ~ {ld(proj.endDate)}</span>
                   </div>
-                  <p className="text-[11px] mt-0.5" style={{ color: '#64748b' }}>{[l('role', 'roleEn', proj), proj.techStack].filter(Boolean).join(' · ')}</p>
-                  {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }}>{renderFormattedText(l('description', 'descriptionEn', proj))}</p>}
+                  <p className="text-[11px] mt-0.5" style={{ color: '#64748b' }} {...fk('role', 'roleEn', proj.id)}>{[l('role', 'roleEn', proj), proj.techStack].filter(Boolean).join(' · ')}</p>
+                  {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }} {...fk('description', 'descriptionEn', proj.id)}>{renderFormattedText(l('description', 'descriptionEn', proj))}</p>}
                 </div>
               ))}
             </div>
@@ -73,10 +73,10 @@ const ProfessionalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               {data.educations.map(edu => (
                 <div key={edu.id} className="mb-2.5 last:mb-0 pl-3" style={{ borderLeft: `2px solid ${ACCENT}20` }}>
                   <div className="flex justify-between items-baseline">
-                    <span className="text-sm font-semibold" style={{ color: '#1e293b' }}>{l('school', 'schoolEn', edu)}</span>
+                    <span className="text-sm font-semibold" style={{ color: '#1e293b' }} {...fk('school', 'schoolEn', edu.id)}>{l('school', 'schoolEn', edu)}</span>
                     <span className="text-[10px]" style={{ color: '#94a3b8' }}>{edu.startDate} ~ {ld(edu.endDate)}</span>
                   </div>
-                  <p className="text-[11px] mt-0.5" style={{ color: '#64748b' }}>{[l('degree', 'degreeEn', edu), l('major', 'majorEn', edu)].filter(Boolean).join(' · ')}</p>
+                  <p className="text-[11px] mt-0.5" style={{ color: '#64748b' }} {...fk('degree', 'degreeEn', edu.id)}>{[l('degree', 'degreeEn', edu), l('major', 'majorEn', edu)].filter(Boolean).join(' · ')}</p>
                 </div>
               ))}
             </div>
@@ -87,7 +87,7 @@ const ProfessionalTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <h2 className="text-xs font-bold uppercase tracking-widest mb-2.5" style={{ color: ACCENT }}>{t('preview.skills')}</h2>
               <div className="flex flex-wrap gap-x-4 gap-y-1.5">
                 {data.skills.map(skill => (
-                  <span key={skill.id} className="text-xs px-2 py-0.5 rounded" style={{ color: ACCENT, background: `${ACCENT}10` }}>
+                  <span key={skill.id} className="text-xs px-2 py-0.5 rounded" style={{ color: ACCENT, background: `${ACCENT}10` }} {...fk('name', 'nameEn', skill.id)}>
                     {l('name', 'nameEn', skill)}
                   </span>
                 ))}

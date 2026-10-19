@@ -22,5 +22,9 @@ export function useResumeData() {
     ? '"Noto Serif SC", "Source Han Serif SC", "STSong", serif'
     : '"Georgia", "Times New Roman", serif';
 
-  return { lang, data, t, isZh, bio, l, ld, font, serifFont, renderFormattedText };
+  const fk = (zhField: string, enField: string, itemId?: string) => ({
+    'data-field': itemId ? `${itemId}.${isZh ? zhField : enField}` : (isZh ? zhField : enField),
+  });
+
+  return { lang, data, t, isZh, bio, l, ld, font, serifFont, renderFormattedText, fk };
 }

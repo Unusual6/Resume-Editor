@@ -51,24 +51,24 @@ export default function ProjectsSection() {
               </button>
             </div>
             <div className="grid grid-cols-2 gap-2">
-              <input className="input-field" placeholder={t('placeholder.projectName')}
+              <input id={`field-${proj.id}-name`} className="input-field" placeholder={t('placeholder.projectName')}
                 value={proj.name} onChange={e => update(proj.id, 'name', e.target.value)} />
-              <input className="input-field" placeholder="Project Name (EN)"
+              <input id={`field-${proj.id}-nameEn`} className="input-field" placeholder="Project Name (EN)"
                 value={proj.nameEn} onChange={e => update(proj.id, 'nameEn', e.target.value)} />
-              <input className="input-field" placeholder={t('placeholder.role')}
+              <input id={`field-${proj.id}-role`} className="input-field" placeholder={t('placeholder.role')}
                 value={proj.role} onChange={e => update(proj.id, 'role', e.target.value)} />
-              <input className="input-field" placeholder="Role (EN)"
+              <input id={`field-${proj.id}-roleEn`} className="input-field" placeholder="Role (EN)"
                 value={proj.roleEn} onChange={e => update(proj.id, 'roleEn', e.target.value)} />
-              <input className="input-field" placeholder={t('form.startDate')} type="month"
+              <input id={`field-${proj.id}-startDate`} className="input-field" placeholder={t('form.startDate')} type="month"
                 value={proj.startDate} onChange={e => update(proj.id, 'startDate', e.target.value)} />
-              <input className="input-field" placeholder={t('form.endDate')} type="month"
+              <input id={`field-${proj.id}-endDate`} className="input-field" placeholder={t('form.endDate')} type="month"
                 value={proj.endDate} onChange={e => update(proj.id, 'endDate', e.target.value)} />
             </div>
-            <input className="input-field" placeholder={t('placeholder.techStack')}
+            <input id={`field-${proj.id}-techStack`} className="input-field" placeholder={t('placeholder.techStack')}
               value={proj.techStack} onChange={e => update(proj.id, 'techStack', e.target.value)} />
-            <FormattedTextarea value={proj.description} onChange={v => update(proj.id, 'description', v)}
+            <FormattedTextarea id={`field-${proj.id}-description`} value={proj.description} onChange={v => update(proj.id, 'description', v)}
               placeholder={t('placeholder.description')} rows={6} />
-            <FormattedTextarea value={proj.descriptionEn} onChange={v => update(proj.id, 'descriptionEn', v)}
+            <FormattedTextarea id={`field-${proj.id}-descriptionEn`} value={proj.descriptionEn} onChange={v => update(proj.id, 'descriptionEn', v)}
               placeholder="Description (EN)" rows={6} />
           </div>
         )}
