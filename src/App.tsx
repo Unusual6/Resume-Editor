@@ -69,7 +69,7 @@ function AppContent() {
     const field = fieldEl.getAttribute('data-field');
     if (!field) return;
 
-    const formField = document.getElementById(`field-${field}`);
+    const formField = document.getElementById(`field-${field.replace(/\./g, '-')}`);
     if (!formField) return;
 
     formField.scrollIntoView({ behavior: 'smooth', block: 'center' });
