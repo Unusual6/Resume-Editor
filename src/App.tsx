@@ -4,6 +4,7 @@ import { printElementAsPDF } from './utils/printExport';
 import { ResumeProvider, useResume } from './context/ResumeContext';
 import ResumeForm from './components/ResumeForm';
 import ResumePreview from './components/ResumePreview';
+import PageBreakGuides from './components/PageBreakGuides';
 import ResumeList from './components/ResumeList';
 import LanguageSwitch from './components/LanguageSwitch';
 import CloudSync from './components/CloudSync';
@@ -164,11 +165,14 @@ function AppContent() {
           <ResumeForm />
         </aside>
 
-        <main className="flex-1 overflow-auto custom-scrollbar bg-sf-bg p-8 flex justify-center
+        {/* items-start keeps the wrapper as tall as the sheet, which is what the
+            page-break guides measure */}
+        <main className="flex-1 overflow-auto custom-scrollbar bg-sf-bg p-8 flex justify-center items-start
                          print:overflow-visible print:p-0 print:block print:w-auto">
-          <div className="transform origin-top print:transform-none print:max-w-none"
+          <div className="relative transform origin-top print:transform-none print:max-w-none"
                style={{ maxWidth: '210mm' }} onClick={handlePreviewClick}>
             <MemoizedPreview ref={previewRef} />
+            <PageBreakGuides />
           </div>
         </main>
       </div>

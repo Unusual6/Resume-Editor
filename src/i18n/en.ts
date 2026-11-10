@@ -54,6 +54,9 @@ export default {
     experience: 'Experience',
     project: 'Projects',
     skills: 'Skills',
+    pageStart: 'Page {{page}}',
+    pageCount: '{{count}} pages when exported to A4',
+    pageBreakHint: 'Printed pages split at this line; the browser may break a little earlier to keep paragraphs intact',
   },
   placeholder: {
     name: 'Enter your name',

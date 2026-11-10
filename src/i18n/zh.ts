@@ -54,6 +54,9 @@ export default {
     experience: '工作经历',
     project: '项目经验',
     skills: '技能',
+    pageStart: '第 {{page}} 页',
+    pageCount: '导出为 A4 时共 {{count}} 页',
+    pageBreakHint: '打印从这条线开始换页；为避免段落被截断，浏览器可能在这条线之前换页',
   },
   placeholder: {
     name: '请输入姓名',
