@@ -29,6 +29,7 @@ export default {
     major: '专业',
     startDate: '开始时间',
     endDate: '结束时间',
+    presentHint: '不选结束时间则显示“至今”',
     description: '描述',
     addEducation: '添加教育经历',
     experience: '工作经历',

@@ -4,7 +4,7 @@ import { useResumeData } from '../utils/useResumeData';
 const ACCENT = '#2563eb';
 
 const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { data, isZh, bio, l, ld, font, t, renderFormattedText, fk } = useResumeData();
+  const { data, isZh, bio, l, dr, font, t, renderFormattedText, fk } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white" style={{ fontFamily: font }}>
@@ -35,7 +35,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
             {data.experiences.map(exp => (
               <Entry key={exp.id}
                 left={l('company', 'companyEn', exp)}
-                right={`${exp.startDate} ~ ${ld(exp.endDate)}`}
+                right={dr(exp.startDate, exp.endDate)}
                 sub={l('position', 'positionEn', exp)}
                 desc={renderFormattedText(l('description', 'descriptionEn', exp))}
                 fields={{ company: fk('company', 'companyEn', exp.id), position: fk('position', 'positionEn', exp.id), desc: fk('description', 'descriptionEn', exp.id) }}
@@ -49,7 +49,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
             {data.projects.map(proj => (
               <Entry key={proj.id}
                 left={l('name', 'nameEn', proj)}
-                right={`${proj.startDate} ~ ${ld(proj.endDate)}`}
+                right={dr(proj.startDate, proj.endDate)}
                 sub={[l('role', 'roleEn', proj), proj.techStack].filter(Boolean).join(' · ')}
                 desc={renderFormattedText(l('description', 'descriptionEn', proj))}
                 fields={{ company: fk('name', 'nameEn', proj.id), position: fk('role', 'roleEn', proj.id), desc: fk('description', 'descriptionEn', proj.id) }}
@@ -63,7 +63,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
             {data.educations.map(edu => (
               <Entry key={edu.id}
                 left={l('school', 'schoolEn', edu)}
-                right={`${edu.startDate} ~ ${ld(edu.endDate)}`}
+                right={dr(edu.startDate, edu.endDate)}
                 sub={[l('degree', 'degreeEn', edu), l('major', 'majorEn', edu)].filter(Boolean).join(' · ')}
                 desc={renderFormattedText(l('description', 'descriptionEn', edu))}
                 fields={{ company: fk('school', 'schoolEn', edu.id), position: fk('degree', 'degreeEn', edu.id), desc: fk('description', 'descriptionEn', edu.id) }}

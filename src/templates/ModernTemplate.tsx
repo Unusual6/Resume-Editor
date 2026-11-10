@@ -5,7 +5,7 @@ const ACCENT = '#0891b2';
 const SIDEBAR_BG = '#f0fdfa';
 
 const ModernTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { data, isZh, bio, l, ld, font, t, renderFormattedText, fk } = useResumeData();
+  const { data, isZh, bio, l, dr, font, t, renderFormattedText, fk } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white flex" style={{ fontFamily: font }}>
@@ -52,7 +52,7 @@ const ModernTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={edu.id} className="mb-2.5 last:mb-0">
                 <p className="text-[11px] font-semibold" style={{ color: '#134e4a' }} {...fk('school', 'schoolEn', edu.id)}>{l('school', 'schoolEn', edu)}</p>
                 <p className="text-[10px]" style={{ color: '#5f8f8b' }} {...fk('degree', 'degreeEn', edu.id)}>{[l('degree', 'degreeEn', edu), l('major', 'majorEn', edu)].filter(Boolean).join(' · ')}</p>
-                <p className="text-[10px]" style={{ color: '#85b0ad' }}>{edu.startDate} ~ {ld(edu.endDate)}</p>
+                <p className="text-[10px]" style={{ color: '#85b0ad' }}>{dr(edu.startDate, edu.endDate)}</p>
               </div>
             ))}
           </div>
@@ -72,7 +72,7 @@ const ModernTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={exp.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-semibold" style={{ color: '#1e293b' }} {...fk('company', 'companyEn', exp.id)}>{l('company', 'companyEn', exp)}</span>
-                  <span className="text-[10px] flex-shrink-0 ml-2" style={{ color: '#94a3b8' }}>{exp.startDate} ~ {ld(exp.endDate)}</span>
+                  <span className="text-[10px] flex-shrink-0 ml-2" style={{ color: '#94a3b8' }}>{dr(exp.startDate, exp.endDate)}</span>
                 </div>
                 <p className="text-[11px] mt-0.5" style={{ color: '#64748b' }} {...fk('position', 'positionEn', exp.id)}>{l('position', 'positionEn', exp)}</p>
                 {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }} {...fk('description', 'descriptionEn', exp.id)}>{renderFormattedText(l('description', 'descriptionEn', exp))}</p>}
@@ -88,7 +88,7 @@ const ModernTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={proj.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-semibold" style={{ color: '#1e293b' }} {...fk('name', 'nameEn', proj.id)}>{l('name', 'nameEn', proj)}</span>
-                  <span className="text-[10px] flex-shrink-0 ml-2" style={{ color: '#94a3b8' }}>{proj.startDate} ~ {ld(proj.endDate)}</span>
+                  <span className="text-[10px] flex-shrink-0 ml-2" style={{ color: '#94a3b8' }}>{dr(proj.startDate, proj.endDate)}</span>
                 </div>
                 <p className="text-[11px] mt-0.5" style={{ color: '#64748b' }} {...fk('role', 'roleEn', proj.id)}>{[l('role', 'roleEn', proj), proj.techStack].filter(Boolean).join(' · ')}</p>
                 {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }} {...fk('description', 'descriptionEn', proj.id)}>{renderFormattedText(l('description', 'descriptionEn', proj))}</p>}

@@ -3,6 +3,7 @@ import { useResume } from '../../context/ResumeContext';
 import { Project } from '../../types/resume';
 import SortableList from '../SortableList';
 import FormattedTextarea from '../FormattedTextarea';
+import { monthInputValue } from '../../utils/date';
 
 export default function ProjectsSection() {
   const { t } = useTranslation();
@@ -60,9 +61,10 @@ export default function ProjectsSection() {
               <input id={`field-${proj.id}-roleEn`} className="input-field" placeholder="Role (EN)"
                 value={proj.roleEn} onChange={e => update(proj.id, 'roleEn', e.target.value)} />
               <input id={`field-${proj.id}-startDate`} className="input-field" placeholder={t('form.startDate')} type="month"
-                value={proj.startDate} onChange={e => update(proj.id, 'startDate', e.target.value)} />
+                value={monthInputValue(proj.startDate)} onChange={e => update(proj.id, 'startDate', e.target.value)} />
               <input id={`field-${proj.id}-endDate`} className="input-field" placeholder={t('form.endDate')} type="month"
-                value={proj.endDate} onChange={e => update(proj.id, 'endDate', e.target.value)} />
+                title={t('form.presentHint')} value={monthInputValue(proj.endDate)}
+                onChange={e => update(proj.id, 'endDate', e.target.value)} />
             </div>
             <input id={`field-${proj.id}-techStack`} className="input-field" placeholder={t('placeholder.techStack')}
               value={proj.techStack} onChange={e => update(proj.id, 'techStack', e.target.value)} />

@@ -29,6 +29,7 @@ export default {
     major: 'Major',
     startDate: 'Start Date',
     endDate: 'End Date',
+    presentHint: 'Leave the end date empty to show "Present"',
     description: 'Description',
     addEducation: 'Add Education',
     experience: 'Experience',

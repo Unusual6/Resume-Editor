@@ -3,6 +3,7 @@ import { useResume } from '../../context/ResumeContext';
 import { Education } from '../../types/resume';
 import SortableList from '../SortableList';
 import FormattedTextarea from '../FormattedTextarea';
+import { monthInputValue } from '../../utils/date';
 
 export default function EducationSection() {
   const { t } = useTranslation();
@@ -67,9 +68,10 @@ export default function EducationSection() {
               <input id={`field-${edu.id}-majorEn`} className="input-field" placeholder="Major (EN)"
                 value={edu.majorEn} onChange={e => updateEducation(edu.id, 'majorEn', e.target.value)} />
               <input id={`field-${edu.id}-startDate`} className="input-field" placeholder={t('form.startDate')} type="month"
-                value={edu.startDate} onChange={e => updateEducation(edu.id, 'startDate', e.target.value)} />
+                value={monthInputValue(edu.startDate)} onChange={e => updateEducation(edu.id, 'startDate', e.target.value)} />
               <input id={`field-${edu.id}-endDate`} className="input-field" placeholder={t('form.endDate')} type="month"
-                value={edu.endDate} onChange={e => updateEducation(edu.id, 'endDate', e.target.value)} />
+                title={t('form.presentHint')} value={monthInputValue(edu.endDate)}
+                onChange={e => updateEducation(edu.id, 'endDate', e.target.value)} />
             </div>
             <FormattedTextarea id={`field-${edu.id}-description`} value={edu.description} onChange={v => updateEducation(edu.id, 'description', v)}
               placeholder={t('placeholder.description')} rows={4} />

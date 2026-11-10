@@ -3,6 +3,7 @@ import { useResume } from '../../context/ResumeContext';
 import { Experience } from '../../types/resume';
 import SortableList from '../SortableList';
 import FormattedTextarea from '../FormattedTextarea';
+import { monthInputValue } from '../../utils/date';
 
 export default function ExperienceSection() {
   const { t } = useTranslation();
@@ -59,9 +60,10 @@ export default function ExperienceSection() {
               <input id={`field-${exp.id}-positionEn`} className="input-field" placeholder="Position (EN)"
                 value={exp.positionEn} onChange={e => update(exp.id, 'positionEn', e.target.value)} />
               <input id={`field-${exp.id}-startDate`} className="input-field" placeholder={t('form.startDate')} type="month"
-                value={exp.startDate} onChange={e => update(exp.id, 'startDate', e.target.value)} />
+                value={monthInputValue(exp.startDate)} onChange={e => update(exp.id, 'startDate', e.target.value)} />
               <input id={`field-${exp.id}-endDate`} className="input-field" placeholder={t('form.endDate')} type="month"
-                value={exp.endDate} onChange={e => update(exp.id, 'endDate', e.target.value)} />
+                title={t('form.presentHint')} value={monthInputValue(exp.endDate)}
+                onChange={e => update(exp.id, 'endDate', e.target.value)} />
             </div>
             <FormattedTextarea id={`field-${exp.id}-description`} value={exp.description} onChange={v => update(exp.id, 'description', v)}
               placeholder={t('placeholder.description')} rows={6} />

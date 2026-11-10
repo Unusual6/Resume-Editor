@@ -5,7 +5,7 @@ const ACCENT = '#7c6f64';
 const SIDEBAR_BG = '#faf8f5';
 
 const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { data, isZh, bio, l, ld, serifFont, t, renderFormattedText, fk } = useResumeData();
+  const { data, isZh, bio, l, dr, serifFont, t, renderFormattedText, fk } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white flex" style={{ fontFamily: serifFont }}>
@@ -48,7 +48,7 @@ const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={edu.id} className="mb-2.5 last:mb-0">
                 <p className="text-[11px] font-semibold" style={{ color: '#3d3530' }} {...fk('school', 'schoolEn', edu.id)}>{l('school', 'schoolEn', edu)}</p>
                 <p className="text-[10px]" style={{ color: '#8a8078' }} {...fk('degree', 'degreeEn', edu.id)}>{[l('degree', 'degreeEn', edu), l('major', 'majorEn', edu)].filter(Boolean).join(' · ')}</p>
-                <p className="text-[10px]" style={{ color: '#a89e94' }}>{edu.startDate} — {ld(edu.endDate)}</p>
+                <p className="text-[10px]" style={{ color: '#a89e94' }}>{dr(edu.startDate, edu.endDate, ' — ')}</p>
               </div>
             ))}
           </div>
@@ -68,7 +68,7 @@ const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={exp.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-semibold" style={{ color: '#2d2722' }} {...fk('company', 'companyEn', exp.id)}>{l('company', 'companyEn', exp)}</span>
-                  <span className="text-[10px]" style={{ color: '#a89e94' }}>{exp.startDate} — {ld(exp.endDate)}</span>
+                  <span className="text-[10px]" style={{ color: '#a89e94' }}>{dr(exp.startDate, exp.endDate, ' — ')}</span>
                 </div>
                 <p className="text-[11px] italic mt-0.5" style={{ color: ACCENT }} {...fk('position', 'positionEn', exp.id)}>{l('position', 'positionEn', exp)}</p>
                 {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#5a534b' }} {...fk('description', 'descriptionEn', exp.id)}>{renderFormattedText(l('description', 'descriptionEn', exp))}</p>}
@@ -84,7 +84,7 @@ const ElegantTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={proj.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-semibold" style={{ color: '#2d2722' }} {...fk('name', 'nameEn', proj.id)}>{l('name', 'nameEn', proj)}</span>
-                  <span className="text-[10px]" style={{ color: '#a89e94' }}>{proj.startDate} — {ld(proj.endDate)}</span>
+                  <span className="text-[10px]" style={{ color: '#a89e94' }}>{dr(proj.startDate, proj.endDate, ' — ')}</span>
                 </div>
                 {proj.techStack && <p className="text-[10px] mt-0.5" style={{ color: '#8a8078' }} {...fk('techStack', 'techStack', proj.id)}>{proj.techStack}</p>}
                 {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#5a534b' }} {...fk('description', 'descriptionEn', proj.id)}>{renderFormattedText(l('description', 'descriptionEn', proj))}</p>}

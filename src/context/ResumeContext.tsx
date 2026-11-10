@@ -49,7 +49,7 @@ const defaultData: ResumeData = {
       id: 'exp-1',
       company: '字节跳动', companyEn: 'ByteDance',
       position: '高级前端工程师', positionEn: 'Senior Frontend Engineer',
-      startDate: '2021-03', endDate: '至今',
+      startDate: '2021-03', endDate: '',
       description: '负责核心业务系统前端架构设计与开发，主导前端性能优化项目，将页面加载速度提升40%。',
       descriptionEn: 'Responsible for frontend architecture design of core business systems, led frontend performance optimization, improving page load speed by 40%.',
     },
