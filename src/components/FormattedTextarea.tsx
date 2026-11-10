@@ -1,4 +1,6 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useLayoutEffect } from 'react';
+import { toggleBold, toggleBullets } from '../utils/textFormat';
+import type { TextEdit } from '../utils/textFormat';
 
 interface Props {
   value: string;
@@ -8,64 +10,61 @@ interface Props {
   id?: string;
 }
 
+interface PendingRestore extends TextEdit {
+  scrollTop: number;
+  hosts: Array<{ el: HTMLElement; scrollTop: number }>;
+}
+
 export default function FormattedTextarea({ value, onChange, placeholder, rows = 5, id }: Props) {
   const ref = useRef<HTMLTextAreaElement>(null);
+  // Caret + scroll offsets to restore once React has committed the new value
+  const pending = useRef<PendingRestore | null>(null);
 
-  const update = useCallback((before: string, after: string, newCursorPos?: number) => {
-    onChange(before + after);
-    requestAnimationFrame(() => {
-      const el = ref.current;
-      if (!el) return;
-      el.focus();
-      if (newCursorPos !== undefined) {
-        el.setSelectionRange(newCursorPos, newCursorPos);
-      }
-    });
-  }, [onChange]);
+  // Runs after the DOM is mutated but before paint, so rewriting the value never
+  // lets the browser scroll the caret (always at the end of the edit) into view.
+  useLayoutEffect(() => {
+    const restore = pending.current;
+    if (!restore) return;
+    // Always drop it, so a caret position is never replayed onto a later edit
+    pending.current = null;
+    const el = ref.current;
+    if (!el || restore.value !== value) return;
+    el.focus({ preventScroll: true });
+    el.setSelectionRange(restore.start, restore.end);
+    el.scrollTop = restore.scrollTop;
+    for (const { el: host, scrollTop } of restore.hosts) host.scrollTop = scrollTop;
+  }, [value]);
+
+  const update = useCallback((edit: TextEdit) => {
+    const el = ref.current;
+    if (!el) {
+      onChange(edit.value);
+      return;
+    }
+    if (edit.value === value) {
+      // Nothing changed: only take the caret back from the toolbar button
+      el.focus({ preventScroll: true });
+      el.setSelectionRange(edit.start, edit.end);
+      return;
+    }
+    const hosts: PendingRestore['hosts'] = [];
+    for (let host = el.parentElement; host; host = host.parentElement) {
+      if (host.scrollHeight > host.clientHeight) hosts.push({ el: host, scrollTop: host.scrollTop });
+    }
+    pending.current = { ...edit, scrollTop: el.scrollTop, hosts };
+    onChange(edit.value);
+  }, [onChange, value]);
 
   const handleBold = () => {
     const el = ref.current;
     if (!el) return;
-    const start = el.selectionStart;
-    const end = el.selectionEnd;
-    const before = value.slice(0, start);
-    const selected = value.slice(start, end);
-    const after = value.slice(end);
-
-    if (selected) {
-      // Toggle bold on selection
-      if (selected.startsWith('**') && selected.endsWith('**')) {
-        update(before, selected.slice(2, -2) + after, start + selected.length - 4);
-      } else {
-        update(before, `**${selected}**` + after, start + selected.length + 4);
-      }
-    } else {
-      // Insert placeholder
-      update(before, '****' + after, start + 2);
-    }
+    update(toggleBold(value, el.selectionStart, el.selectionEnd));
   };
 
   const handleBullet = () => {
     const el = ref.current;
     if (!el) return;
-    const start = el.selectionStart;
-    const end = el.selectionEnd;
-
-    // Find the range of lines to toggle
-    const lineStart = value.lastIndexOf('\n', start - 1) + 1;
-    let lineEnd = value.indexOf('\n', end);
-    if (lineEnd === -1) lineEnd = value.length;
-
-    const before = value.slice(0, lineStart);
-    const after = value.slice(lineEnd);
-    const lines = value.slice(lineStart, lineEnd).split('\n');
-
-    // Toggle: if all lines have bullets, remove them; otherwise add to all
-    const allBulleted = lines.every(l => l.startsWith('• '));
-    const newLines = lines.map(l => allBulleted ? l.replace(/^• /, '') : `• ${l}`);
-    const newText = newLines.join('\n');
-
-    update(before, newText + after, lineStart + newText.length);
+    update(toggleBullets(value, el.selectionStart, el.selectionEnd));
   };
 
   return (
@@ -73,6 +72,7 @@ export default function FormattedTextarea({ value, onChange, placeholder, rows =
       <div className="flex items-center gap-1 mb-1">
         <button
           type="button"
+          onMouseDown={e => e.preventDefault()}
           onClick={handleBold}
           className="w-6 h-6 flex items-center justify-center rounded text-[11px] font-bold
                      text-sf-muted border border-sf-border hover:bg-primary/15 hover:text-primary
@@ -83,6 +83,7 @@ export default function FormattedTextarea({ value, onChange, placeholder, rows =
         </button>
         <button
           type="button"
+          onMouseDown={e => e.preventDefault()}
           onClick={handleBullet}
           className="w-6 h-6 flex items-center justify-center rounded text-sm
                      text-sf-muted border border-sf-border hover:bg-primary/15 hover:text-primary
