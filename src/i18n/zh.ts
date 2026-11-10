@@ -2,6 +2,8 @@ export default {
   app: {
     title: '简历编辑器',
     exportPdf: '导出 PDF',
+    exporting: '导出中…',
+    exportFailed: 'PDF 导出失败，请重试',
     switchLang: 'EN',
   },
   form: {

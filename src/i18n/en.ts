@@ -2,6 +2,8 @@ export default {
   app: {
     title: 'Resume Editor',
     exportPdf: 'Export PDF',
+    exporting: 'Exporting…',
+    exportFailed: 'PDF export failed, please try again',
     switchLang: '中文',
   },
   form: {

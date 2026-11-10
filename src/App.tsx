@@ -1,7 +1,6 @@
 import { useRef, useCallback, useState, useEffect, memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import html2canvas from 'html2canvas';
-import { jsPDF } from 'jspdf';
+import { printElementAsPDF } from './utils/printExport';
 import { ResumeProvider, useResume } from './context/ResumeContext';
 import ResumeForm from './components/ResumeForm';
 import ResumePreview from './components/ResumePreview';
@@ -59,6 +58,7 @@ function AppContent() {
   const { data, saveCurrentResume } = useResume();
   const previewRef = useRef<HTMLDivElement>(null);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [exporting, setExporting] = useState(false);
 
   // Click-to-focus: clicking preview text scrolls & highlights the corresponding form field
   const handlePreviewClick = useCallback((e: React.MouseEvent) => {
@@ -88,28 +88,22 @@ function AppContent() {
 
   const exportPdf = useCallback(async () => {
     const el = previewRef.current;
-    if (!el) return;
+    if (!el || exporting) return;
+    setExporting(true);
 
-    const canvas = await html2canvas(el, {
-      scale: 2,
-      useCORS: true,
-      logging: false,
-      backgroundColor: '#ffffff',
-    });
-
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-
-    const name = data.basicInfo.name || data.basicInfo.nameEn || 'resume';
-    pdf.save(`${name}_resume.pdf`);
-  }, [data.basicInfo.name, data.basicInfo.nameEn]);
+    try {
+      const name = data.basicInfo.name || data.basicInfo.nameEn || 'resume';
+      await printElementAsPDF(el, `${name}_resume`);
+    } catch (err) {
+      console.error('PDF export failed', err);
+      window.alert(t('app.exportFailed'));
+    } finally {
+      setExporting(false);
+    }
+  }, [data.basicInfo.name, data.basicInfo.nameEn, exporting, t]);
 
   return (
-    <div className="h-screen flex flex-col bg-sf-bg">
+    <div className="h-screen flex flex-col bg-sf-bg print:h-auto print:block print:bg-white">
       {/* Top bar - Claude Code style */}
       <header className="no-print flex items-center justify-between px-4 py-2 bg-sf-surface border-b border-sf-border">
         <div className="flex items-center gap-3">
@@ -147,11 +141,13 @@ function AppContent() {
           </button>
           <button
             onClick={exportPdf}
+            disabled={exporting}
             className="py-1 text-xs font-medium text-white bg-primary rounded
-                       hover:bg-secondary transition-colors font-mono flex-shrink-0"
+                       hover:bg-secondary transition-colors font-mono flex-shrink-0
+                       disabled:opacity-60 disabled:cursor-wait"
             style={{ width: '88px' }}
           >
-            <span className="block truncate text-center">{t('app.exportPdf')}</span>
+            <span className="block truncate text-center">{exporting ? t('app.exporting') : t('app.exportPdf')}</span>
           </button>
         </div>
       </header>
@@ -168,8 +164,10 @@ function AppContent() {
           <ResumeForm />
         </aside>
 
-        <main className="flex-1 overflow-auto custom-scrollbar bg-sf-bg p-8 flex justify-center">
-          <div className="transform origin-top" style={{ maxWidth: '210mm' }} onClick={handlePreviewClick}>
+        <main className="flex-1 overflow-auto custom-scrollbar bg-sf-bg p-8 flex justify-center
+                         print:overflow-visible print:p-0 print:block print:w-auto">
+          <div className="transform origin-top print:transform-none print:max-w-none"
+               style={{ maxWidth: '210mm' }} onClick={handlePreviewClick}>
             <MemoizedPreview ref={previewRef} />
           </div>
         </main>

@@ -93,16 +93,44 @@ body {
   color: #1a1a1a;
 }
 
-/* Print styles */
+/* Print styles - the exported PDF goes through the browser's own print pipeline,
+   so the resume keeps selectable, infinitely sharp text.
+   Margins come from the template's own padding, hence margin: 0 here. */
+@page {
+  size: A4;
+  margin: 0;
+}
+
 @media print {
+  html, body {
+    background: #fff;
+    height: auto;
+    overflow: visible;
+  }
   body {
-    background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  #root {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
   }
   .no-print {
     display: none !important;
   }
   .resume-a4 {
+    width: auto;
+    min-height: 0;
     box-shadow: none;
-    width: 100%;
+  }
+  /* Keep headings with their content and never split a paragraph across pages */
+  .resume-a4 h2 {
+    break-after: avoid;
+  }
+  .resume-a4 p,
+  .resume-a4 h1,
+  .resume-a4 h2 {
+    break-inside: avoid;
   }
 }
