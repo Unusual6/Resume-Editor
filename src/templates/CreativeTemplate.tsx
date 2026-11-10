@@ -1,11 +1,12 @@
 import { forwardRef } from 'react';
 import { useResumeData } from '../utils/useResumeData';
+import DateRange from '../components/DateRange';
 
 const ACCENT = '#7c3aed';
 const HEADER_BG = 'linear-gradient(135deg, #ede9fe 0%, #f0f9ff 100%)';
 
 const CreativeTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { data, isZh, bio, l, dr, font, t, renderFormattedText, fk } = useResumeData();
+  const { data, isZh, bio, l, font, t, renderFormattedText, fk } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white" style={{ fontFamily: font }}>
@@ -38,7 +39,7 @@ const CreativeTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={exp.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-semibold" style={{ color: '#1e1b4b' }} {...fk('company', 'companyEn', exp.id)}>{l('company', 'companyEn', exp)}</span>
-                  <span className="text-[10px]" style={{ color: '#a5b4fc' }}>{dr(exp.startDate, exp.endDate)}</span>
+                  <span className="text-[10px]" style={{ color: '#a5b4fc' }}><DateRange start={exp.startDate} end={exp.endDate} /></span>
                 </div>
                 <p className="text-[11px] mt-0.5" style={{ color: '#7c3aed' }} {...fk('position', 'positionEn', exp.id)}>{l('position', 'positionEn', exp)}</p>
                 {l('description', 'descriptionEn', exp) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }} {...fk('description', 'descriptionEn', exp.id)}>{renderFormattedText(l('description', 'descriptionEn', exp))}</p>}
@@ -54,7 +55,7 @@ const CreativeTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={proj.id} className="mb-3 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-semibold" style={{ color: '#1e1b4b' }} {...fk('name', 'nameEn', proj.id)}>{l('name', 'nameEn', proj)}</span>
-                  <span className="text-[10px]" style={{ color: '#a5b4fc' }}>{dr(proj.startDate, proj.endDate)}</span>
+                  <span className="text-[10px]" style={{ color: '#a5b4fc' }}><DateRange start={proj.startDate} end={proj.endDate} /></span>
                 </div>
                 <p className="text-[11px] mt-0.5" style={{ color: '#7c3aed' }} {...fk('role', 'roleEn', proj.id)}>{[l('role', 'roleEn', proj), proj.techStack].filter(Boolean).join(' · ')}</p>
                 {l('description', 'descriptionEn', proj) && <p className="text-xs mt-1 leading-relaxed" style={{ color: '#475569' }} {...fk('description', 'descriptionEn', proj.id)}>{renderFormattedText(l('description', 'descriptionEn', proj))}</p>}
@@ -70,7 +71,7 @@ const CreativeTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
               <div key={edu.id} className="mb-2.5 last:mb-0">
                 <div className="flex justify-between items-baseline">
                   <span className="text-sm font-semibold" style={{ color: '#1e1b4b' }} {...fk('school', 'schoolEn', edu.id)}>{l('school', 'schoolEn', edu)}</span>
-                  <span className="text-[10px]" style={{ color: '#a5b4fc' }}>{dr(edu.startDate, edu.endDate)}</span>
+                  <span className="text-[10px]" style={{ color: '#a5b4fc' }}><DateRange start={edu.startDate} end={edu.endDate} /></span>
                 </div>
                 <p className="text-[11px] mt-0.5" style={{ color: '#6366f1' }} {...fk('degree', 'degreeEn', edu.id)}>{[l('degree', 'degreeEn', edu), l('major', 'majorEn', edu)].filter(Boolean).join(' · ')}</p>
               </div>

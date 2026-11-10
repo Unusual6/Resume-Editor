@@ -30,16 +30,21 @@ export function localizeDate(value: string, lang: Lang): string {
   return value;
 }
 
+/** The two columns of a period; either side can be empty */
+export interface DateRangeParts {
+  from: string;
+  to: string;
+}
+
 /**
- * Render a period as "2021-03 ~ 至今". An end date that was never picked means the role is
- * still current — the usual resume convention — so it shows the "present" label instead of
- * leaving a dangling separator; a start date can never be "present" and is dropped.
+ * Split a period for display. An end date that was never picked means the role is still
+ * current — the usual resume convention — so the right column falls back to the present
+ * label; a start date can never be "present", so that value is dropped rather than shown.
  */
-export function formatDateRange(start: string, end: string, lang: Lang, sep = ' ~ '): string {
+export function splitDateRange(start: string, end: string, lang: Lang): DateRangeParts {
   const rawStart = start.trim();
   const rawEnd = end.trim();
   const from = PRESENT_WORDS.includes(rawStart) ? '' : localizeDate(rawStart, lang);
   const to = rawEnd ? localizeDate(rawEnd, lang) : (from ? PRESENT[lang] : '');
-  if (!from) return to;
-  return to ? `${from}${sep}${to}` : from;
+  return { from, to };
 }

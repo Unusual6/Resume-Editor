@@ -1,10 +1,11 @@
 import { forwardRef } from 'react';
 import { useResumeData } from '../utils/useResumeData';
+import DateRange from '../components/DateRange';
 
 const ACCENT = '#2563eb';
 
 const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
-  const { data, isZh, bio, l, dr, font, t, renderFormattedText, fk } = useResumeData();
+  const { data, isZh, bio, l, font, t, renderFormattedText, fk } = useResumeData();
 
   return (
     <div ref={ref} className="resume-a4 bg-white" style={{ fontFamily: font }}>
@@ -35,7 +36,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
             {data.experiences.map(exp => (
               <Entry key={exp.id}
                 left={l('company', 'companyEn', exp)}
-                right={dr(exp.startDate, exp.endDate)}
+                right={<DateRange start={exp.startDate} end={exp.endDate} />}
                 sub={l('position', 'positionEn', exp)}
                 desc={renderFormattedText(l('description', 'descriptionEn', exp))}
                 fields={{ company: fk('company', 'companyEn', exp.id), position: fk('position', 'positionEn', exp.id), desc: fk('description', 'descriptionEn', exp.id) }}
@@ -49,7 +50,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
             {data.projects.map(proj => (
               <Entry key={proj.id}
                 left={l('name', 'nameEn', proj)}
-                right={dr(proj.startDate, proj.endDate)}
+                right={<DateRange start={proj.startDate} end={proj.endDate} />}
                 sub={[l('role', 'roleEn', proj), proj.techStack].filter(Boolean).join(' · ')}
                 desc={renderFormattedText(l('description', 'descriptionEn', proj))}
                 fields={{ company: fk('name', 'nameEn', proj.id), position: fk('role', 'roleEn', proj.id), desc: fk('description', 'descriptionEn', proj.id) }}
@@ -63,7 +64,7 @@ const ClassicTemplate = forwardRef<HTMLDivElement>((_props, ref) => {
             {data.educations.map(edu => (
               <Entry key={edu.id}
                 left={l('school', 'schoolEn', edu)}
-                right={dr(edu.startDate, edu.endDate)}
+                right={<DateRange start={edu.startDate} end={edu.endDate} />}
                 sub={[l('degree', 'degreeEn', edu), l('major', 'majorEn', edu)].filter(Boolean).join(' · ')}
                 desc={renderFormattedText(l('description', 'descriptionEn', edu))}
                 fields={{ company: fk('school', 'schoolEn', edu.id), position: fk('degree', 'degreeEn', edu.id), desc: fk('description', 'descriptionEn', edu.id) }}
@@ -100,7 +101,7 @@ function Section({ title, accent, children }: { title: string; accent: string; c
   );
 }
 
-function Entry({ left, right, sub, desc, fields }: { left: string; right: string; sub: string; desc: React.ReactNode; fields?: { company: Record<string, string>; position: Record<string, string>; desc: Record<string, string> } }) {
+function Entry({ left, right, sub, desc, fields }: { left: string; right: React.ReactNode; sub: string; desc: React.ReactNode; fields?: { company: Record<string, string>; position: Record<string, string>; desc: Record<string, string> } }) {
   return (
     <div className="mb-2.5 last:mb-0">
       <div className="flex justify-between items-baseline">
